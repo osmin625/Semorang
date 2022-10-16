@@ -9,7 +9,7 @@ seed(1)
 
 def auto_admin(n):
     insert_quote = []
-    admin_attr = ['admin_id', 'password', 'phone_number']
+    admin_attr = ['admin_id', 'password']
     admin_tup = []
     for i in range(n):
         admin_id = 'admin_'+str(i+1)
@@ -19,10 +19,10 @@ def auto_admin(n):
         # phone number 010 제외하고 뒤에 8자리만
         phone_num = str(int(random() * 100000000))
         phone_num = '010' + phone_num.zfill(8)
-        admin_tup.append([admin_id, pw, phone_num]) 
+        admin_tup.append([admin_id, pw]) 
     
     for ad in admin_tup:
-        insert_quote.append('INSERT INTO Admin' + str(tuple(admin_attr)) +' VALUES ' + str(tuple(ad)) + ';')
+        insert_quote.append('INSERT INTO Admin' + str(tuple(admin_attr)) +' VALUES ' + str(tuple(ad)) + ';') 
 
     return insert_quote
 result = auto_admin(n)
@@ -41,4 +41,17 @@ INSERT INTO Admin('admin_id', 'password', 'phone_number') VALUES ('admin_7', 'pw
 INSERT INTO Admin('admin_id', 'password', 'phone_number') VALUES ('admin_8', 'pw4453871', '01072154003');
 INSERT INTO Admin('admin_id', 'password', 'phone_number') VALUES ('admin_9', 'pw2287622', '01094527069');
 INSERT INTO Admin('admin_id', 'password', 'phone_number') VALUES ('admin_10', 'pw9014274', '01003058998');
+"""
+
+"""
+INSERT INTO Admin('admin_id', 'password') VALUES ('admin_1', 'pw1343642');
+INSERT INTO Admin('admin_id', 'password') VALUES ('admin_2', 'pw7637746');
+INSERT INTO Admin('admin_id', 'password') VALUES ('admin_3', 'pw4954350');
+INSERT INTO Admin('admin_id', 'password') VALUES ('admin_4', 'pw6515929');
+INSERT INTO Admin('admin_id', 'password') VALUES ('admin_5', 'pw0938595');
+INSERT INTO Admin('admin_id', 'password') VALUES ('admin_6', 'pw8357651');
+INSERT INTO Admin('admin_id', 'password') VALUES ('admin_7', 'pw7622800');
+INSERT INTO Admin('admin_id', 'password') VALUES ('admin_8', 'pw4453871');
+INSERT INTO Admin('admin_id', 'password') VALUES ('admin_9', 'pw2287622');
+INSERT INTO Admin('admin_id', 'password') VALUES ('admin_10', 'pw9014274');
 """
