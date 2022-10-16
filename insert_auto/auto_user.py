@@ -10,7 +10,7 @@ first_name_samples = "김이박최정강조윤장임권전오민고"
 middle_name_samples = "민서예지도하주윤채현지"
 last_name_samples = "준윤우원호후서연아은진"
 
-region1 = ['대구광역시 ']
+region1 = ['대구 ']
 region2 = ['북구', '남구', '중구', '서구', '동구', '수성구', '달서구']
 
 def random_name():
@@ -39,11 +39,14 @@ def auto_user(n):
         name = random_name()
         # region은 대구만 넣음 (군/구 까지만 넣음)
         region = random_region()
+        # phone number
+        ph_num = str(int(random() * 100000000))
+        ph_num = '010' + ph_num.zfill(8)
 
-        user_tup.append([user_id, pw, name, region]) 
+        user_tup.append([user_id, pw, name, region, ph_num]) 
     
     for ad in user_tup:
-        insert_quote.append('INSERT INTO User' + str(tuple(user_attr)) +' VALUES ' + str(tuple(ad)) + ';')
+        insert_quote.append('INSERT INTO Users'  +' VALUES ' + str(tuple(ad)) + ';') # + str(tuple(user_attr))
 
     return insert_quote
 result = auto_user(n)
@@ -102,4 +105,8 @@ INSERT INTO User('user_id', 'password', 'name', 'region') VALUES ('user_47', 'pw
 INSERT INTO User('user_id', 'password', 'name', 'region') VALUES ('user_48', 'pw9855082', '최서준', '대구광역시 남구');
 INSERT INTO User('user_id', 'password', 'name', 'region') VALUES ('user_49', 'pw1696941', '고채원', '대구광역시 달서구');       
 INSERT INTO User('user_id', 'password', 'name', 'region') VALUES ('user_50', 'pw3322334', '장도후', '대구광역시 중구');
+"""
+
+"""
+
 """
