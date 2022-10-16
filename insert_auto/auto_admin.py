@@ -28,3 +28,17 @@ def auto_admin(n):
 result = auto_admin(n)
 for r in result:
     print(r)
+
+
+"""
+INSERT INTO Admin('admin_id', 'password', 'phone_number') VALUES ('admin_1', 'pw1343642', '01084743373');
+INSERT INTO Admin('admin_id', 'password', 'phone_number') VALUES ('admin_2', 'pw7637746', '01025506902');
+INSERT INTO Admin('admin_id', 'password', 'phone_number') VALUES ('admin_3', 'pw4954350', '01044949106');
+INSERT INTO Admin('admin_id', 'password', 'phone_number') VALUES ('admin_4', 'pw6515929', '01078872335');
+INSERT INTO Admin('admin_id', 'password', 'phone_number') VALUES ('admin_5', 'pw0938595', '01002834747');
+INSERT INTO Admin('admin_id', 'password', 'phone_number') VALUES ('admin_6', 'pw8357651', '01043276706');
+INSERT INTO Admin('admin_id', 'password', 'phone_number') VALUES ('admin_7', 'pw7622800', '01000210605');
+INSERT INTO Admin('admin_id', 'password', 'phone_number') VALUES ('admin_8', 'pw4453871', '01072154003');
+INSERT INTO Admin('admin_id', 'password', 'phone_number') VALUES ('admin_9', 'pw2287622', '01094527069');
+INSERT INTO Admin('admin_id', 'password', 'phone_number') VALUES ('admin_10', 'pw9014274', '01003058998');
+"""
