@@ -115,6 +115,5 @@ FOREIGN KEY (snapshot_id) REFERENCES RANKING_SNAPSHOT(snapshot_id) ON DELETE CAS
 FOREIGN KEY (user_id) REFERENCES USERS(user_id) ON DELETE SET NULL
 );
 
-
-
 commit;
+
