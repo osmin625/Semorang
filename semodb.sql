@@ -222,8 +222,6 @@ INSERT INTO THINGRANK (THING_RANK_ID, THING_ID, USER_ID, RANKS, THINGKING_DATE, 
 VALUES ('for_match5', '19994629', 'user_11', 0, '1999-11-22', '2006-9-2');
 ------------------------------------------------
 --RECEIPT
-DESC RECEIPT;
-select * from receipt;
 INSERT INTO RECEIPT VALUES('receipt1', '2000-1-2','http://img1.jpg');
 INSERT INTO RECEIPT VALUES('receipt2', '2021-3-4','http://img2.jpg');
 INSERT INTO RECEIPT VALUES('receipt3', '2020-5-6','http://img3.jpg');
@@ -244,12 +242,13 @@ INSERT INTO RANKING_SNAPSHOT VALUES ('snapshot_3','for_match3', 'user_4','commen
 INSERT INTO RANKING_SNAPSHOT VALUES ('snapshot_4','for_match2', 'user_4','comment1151','1101-11-11','1523-2-22',362,5);
 INSERT INTO RANKING_SNAPSHOT VALUES ('snapshot_5','for_match1', 'user_43','comment1771','1011-11-11','2142-10-22',362,12);
 ------------------------------------------------
---VERIFY
+--VERIFY (admin_id,신청한 날짜, 인증된 날짜) 추가 필요
 INSERT INTO VERIFY VALUES ('verify1', 'receipt3', 20546259, 'user_11','4232-4-3');
 INSERT INTO VERIFY VALUES ('verify2', 'receipt4', 26390340, 'user_5','1142-5-1');
 INSERT INTO VERIFY VALUES ('verify3', 'receipt2', 26248029, 'user_23','4112-8-13');
 INSERT INTO VERIFY VALUES ('verify4', 'receipt1', 23178356, 'user_18','2001-4-24');
 INSERT INTO VERIFY VALUES ('verify5', 'receipt5', 17063413, 'user_1','1000-1-6');
+--receipt_id 중복 제거 제약조건 추가 필요
 ------------------------------------------------
 --SNAPSHOT_COMMENT
 INSERT INTO SNAPSHOT_COMMENT VALUES ('comment1','snapshot_2', 'user_45','commentcommentcommentcomment', '2030-11-5','9999-9-9');
