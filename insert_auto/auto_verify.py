@@ -1,42 +1,6 @@
-import numpy as np
-import pandas as pd
-# thing_id, admin_id, thing_name, category_id, latitude, longitude (경도, 위도는 float64타입으로 받아야 할듯)
-p = "Semorang/insert_auto/"
-df_things = pd.read_csv(p + "thing_50.csv")
-# print(df_things)
-cnt = 0
-ans = []
-df_things = df_things.fillna("NULL")
+import random
 
-# print(df_things)
-for i in range(df_things.shape[0]):
-    temp = []
-    
-    for j in range(1, df_things.shape[1]):
-        # admin_id를 넣기 위해
-        if j == 2:
-            if i % 5 == 0:
-                cnt += 1
-            ad_id = 'admin_'+str(cnt)
-            temp.append(ad_id)
-
-        # print(type(df_things.iloc[i][j]))
-        if type(df_things.iloc[i][j]) == str:
-            temp.append(str(df_things.iloc[i][j]))
-        elif type(df_things.iloc[i][j]) == np.int64 or type(df_things.iloc[i][j]) == np.float64 or type(df_things.iloc[i][j]) == int:
-            if type(df_things.iloc[i][j]) == float or type(df_things.iloc[i][j]) == np.float64:
-                temp.append(df_things.iloc[i][j])
-            else:
-                temp.append(int(df_things.iloc[i][j]))
-        
-    ans.append(temp)
-    
-thing_attr = ('thing_id', 'admin_id', 'thing_name', 'category_id', 'latitude', 'longitude', 'sido', 'sigoongoo', 'bubjungdong')
-for a in ans:
-    print('INSERT INTO Thing' +' VALUES ' + str(tuple(a))+';') # + str(tuple(thing_attr)) 
-
-"""
-INSERT INTO Thing VALUES (17050121, 'admin_1', '사월동버거', 'Q01A01', 128.712138415124, 35.8366126400214, '대구광역시', '수성구', '신매동');
+need_extract = """INSERT INTO Thing VALUES (17050121, 'admin_1', '사월동버거', 'Q01A01', 128.712138415124, 35.8366126400214, '대구광역시', '수성구', '신매동');
 INSERT INTO Thing VALUES (18390076, 'admin_1', '눈꽃을나누다', 'Q01A01', 128.596390517262, 35.9193801029699, '대구광역시', '북구', '서변동');
 INSERT INTO Thing VALUES (23178356, 'admin_1', '종가집곰탕', 'Q01A09', 128.560535960223, 35.8347744268347, '대구광역시', '남구', '대명동');
 INSERT INTO Thing VALUES (16642883, 'admin_1', '동인정취', 'Q12A01', 128.607423137614, 35.8696081145262, '대구광역시', '중구', '동인동4가');
@@ -85,5 +49,118 @@ INSERT INTO Thing VALUES (18223652, 'admin_10', '청솔로9', 'Q12A01', 128.6084
 INSERT INTO Thing VALUES (25458448, 'admin_10', '왕소금구이', 'Q01A99', 128.631461166517, 35.8259772957524, '대구광역시', '수성 구', '지산동');
 INSERT INTO Thing VALUES (23317507, 'admin_10', '다빈치', 'Q12A01', 128.574750902372, 35.8596920597945, '대구광역시', '남구', ' 대명동');
 INSERT INTO Thing VALUES (19914111, 'admin_10', '청도추어탕', 'Q01A01', 128.478247675291, 35.854571744264, '대구광역시', '달서', '호산동');
-INSERT INTO Thing VALUES (26070557, 'admin_10', '네네치킨화원점', 'Q05A08', 128.495664465549, 35.7978073003374, '대구광역시', '달성군', '화원읍');
+INSERT INTO Thing VALUES (26070557, 'admin_10', '네네치킨화원점', 'Q05A08', 128.495664465549, 35.7978073003374, '대구광역시', '달성군', '화원읍');"""
+
+# INSERT INTO VERIFY VALUES ('verify1', 'receipt3', 20546259, 'user_11','4232-4-3');
+
+# 이름          널?       유형           
+# ----------- -------- ------------ 
+# VERIFY_ID   NOT NULL VARCHAR2(11) 
+# RECEIPT_ID           VARCHAR2(11) 
+# THING_ID             NUMBER(8)    
+# USER_ID              VARCHAR2(11) 
+# VERIFY_DATE          DATE
+
+
+n = 50
+
+def thing_id_extraction(ex):
+    ans = []
+    temp_ex = list(ex.split('\n'))
+    for t in temp_ex:
+        temp = list(t.split(' '))
+        
+        ans.append(temp[4][1:9])
+    return ans
+
+def auto_verify(ex, ind, n):
+    insert_quote = []
+    verify_tup = []
+    for i in range(n):
+        verify_id = 'verify'+str(i+1)
+        
+        receipt_id = 'receipt' + str(ind[i] + 1)
+        
+        thing_id = ex[random.randint(1,n)-1]
+        
+        user = 'user_' + str(random.randint(1,n))
+
+        year = str(random.randint(1000,9999))
+        month = str(random.randint(1,12))
+        day = str(random.randint(1,30))
+        date = year + '-' + month + '-' + day
+        
+        verify_tup.append([verify_id, receipt_id, thing_id, user, date]) 
+    
+    for ad in verify_tup:
+        insert_quote.append('INSERT INTO VERIFY VALUES ' + str(tuple(ad)) + ';') 
+
+    return insert_quote
+
+ind = []
+# 중복없이 랜덤 index 0~49
+for i in range(n):
+    a = random.randint(0,n-1)       
+    while a in ind:
+        a = random.randint(0,n-1)
+    ind.append(a)
+
+
+thing_id = thing_id_extraction(need_extract)
+ans = auto_verify(thing_id, ind, n)
+
+for a in ans:
+    print(a)
+
+"""
+INSERT INTO VERIFY VALUES ('verify1', 'receipt46', '26248029', 'user_39', '8111-1-21');
+INSERT INTO VERIFY VALUES ('verify2', 'receipt32', '18390076', 'user_12', '9756-3-29');
+INSERT INTO VERIFY VALUES ('verify3', 'receipt4', '23382779', 'user_14', '1998-4-16');
+INSERT INTO VERIFY VALUES ('verify4', 'receipt40', '25458448', 'user_6', '4854-12-26');
+INSERT INTO VERIFY VALUES ('verify5', 'receipt50', '18095238', 'user_22', '7611-10-5');
+INSERT INTO VERIFY VALUES ('verify6', 'receipt45', '17470753', 'user_27', '3693-1-2');
+INSERT INTO VERIFY VALUES ('verify7', 'receipt38', '17856847', 'user_10', '2375-12-26');
+INSERT INTO VERIFY VALUES ('verify8', 'receipt3', '18042774', 'user_28', '7315-6-20');
+INSERT INTO VERIFY VALUES ('verify9', 'receipt28', '18095238', 'user_21', '4529-1-2');
+INSERT INTO VERIFY VALUES ('verify10', 'receipt1', '17720028', 'user_20', '8800-11-21');
+INSERT INTO VERIFY VALUES ('verify11', 'receipt14', '25755835', 'user_14', '6657-8-27');
+INSERT INTO VERIFY VALUES ('verify12', 'receipt27', '25458448', 'user_20', '2234-12-18');
+INSERT INTO VERIFY VALUES ('verify13', 'receipt42', '26070557', 'user_22', '6747-3-2');
+INSERT INTO VERIFY VALUES ('verify14', 'receipt16', '16642883', 'user_15', '7710-6-8');
+INSERT INTO VERIFY VALUES ('verify15', 'receipt26', '19914111', 'user_36', '6615-4-29');
+INSERT INTO VERIFY VALUES ('verify16', 'receipt30', '17572409', 'user_27', '6885-10-10');
+INSERT INTO VERIFY VALUES ('verify17', 'receipt25', '17262371', 'user_40', '1186-10-23');
+INSERT INTO VERIFY VALUES ('verify18', 'receipt18', '18042774', 'user_46', '6725-8-12');
+INSERT INTO VERIFY VALUES ('verify19', 'receipt24', '17126506', 'user_34', '8284-10-5');
+INSERT INTO VERIFY VALUES ('verify20', 'receipt7', '18095238', 'user_37', '2309-5-10');
+INSERT INTO VERIFY VALUES ('verify21', 'receipt29', '25458448', 'user_19', '1371-1-5');
+INSERT INTO VERIFY VALUES ('verify22', 'receipt9', '16630137', 'user_43', '2369-7-5');
+INSERT INTO VERIFY VALUES ('verify23', 'receipt13', '17126506', 'user_22', '7858-4-3');
+INSERT INTO VERIFY VALUES ('verify24', 'receipt39', '23266088', 'user_14', '9859-2-2');
+INSERT INTO VERIFY VALUES ('verify25', 'receipt44', '17856847', 'user_4', '7330-9-4');
+INSERT INTO VERIFY VALUES ('verify26', 'receipt48', '23178356', 'user_49', '1072-10-6');
+INSERT INTO VERIFY VALUES ('verify27', 'receipt19', '17856847', 'user_4', '9588-3-9');
+INSERT INTO VERIFY VALUES ('verify28', 'receipt6', '17126506', 'user_41', '8942-6-16');
+INSERT INTO VERIFY VALUES ('verify29', 'receipt33', '23317507', 'user_33', '2135-10-29');
+INSERT INTO VERIFY VALUES ('verify30', 'receipt47', '17470753', 'user_29', '4854-12-27');
+INSERT INTO VERIFY VALUES ('verify31', 'receipt11', '26070557', 'user_35', '7507-3-4');
+INSERT INTO VERIFY VALUES ('verify32', 'receipt5', '12074539', 'user_34', '5745-2-26');
+INSERT INTO VERIFY VALUES ('verify33', 'receipt8', '17126506', 'user_44', '9720-3-8');
+INSERT INTO VERIFY VALUES ('verify34', 'receipt23', '18118531', 'user_13', '6479-7-7');
+INSERT INTO VERIFY VALUES ('verify35', 'receipt35', '16947896', 'user_42', '7287-12-5');
+INSERT INTO VERIFY VALUES ('verify36', 'receipt17', '26248029', 'user_12', '3533-9-28');
+INSERT INTO VERIFY VALUES ('verify37', 'receipt43', '16410914', 'user_6', '3167-11-12');
+INSERT INTO VERIFY VALUES ('verify38', 'receipt12', '23178356', 'user_25', '9183-6-2');
+INSERT INTO VERIFY VALUES ('verify39', 'receipt36', '16642883', 'user_24', '8052-11-11');
+INSERT INTO VERIFY VALUES ('verify40', 'receipt22', '18223652', 'user_24', '3523-8-5');
+INSERT INTO VERIFY VALUES ('verify41', 'receipt31', '16726942', 'user_7', '6520-4-20');
+INSERT INTO VERIFY VALUES ('verify42', 'receipt20', '18118531', 'user_8', '8341-10-10');
+INSERT INTO VERIFY VALUES ('verify43', 'receipt49', '17856847', 'user_33', '5036-5-22');
+INSERT INTO VERIFY VALUES ('verify44', 'receipt2', '18095238', 'user_42', '7662-9-11');
+INSERT INTO VERIFY VALUES ('verify45', 'receipt34', '16947896', 'user_50', '2624-3-21');
+INSERT INTO VERIFY VALUES ('verify46', 'receipt37', '12518380', 'user_9', '2746-6-14');
+INSERT INTO VERIFY VALUES ('verify47', 'receipt41', '16410914', 'user_29', '1746-3-26');
+INSERT INTO VERIFY VALUES ('verify48', 'receipt15', '16679243', 'user_48', '7472-10-19');
+INSERT INTO VERIFY VALUES ('verify49', 'receipt21', '25290079', 'user_24', '3214-10-18');
+INSERT INTO VERIFY VALUES ('verify50', 'receipt10', '18118531', 'user_31', '1761-10-25');
 """
