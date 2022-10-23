@@ -126,6 +126,46 @@ INSERT INTO Admin VALUES ('admin_7', 'pw7622800');
 INSERT INTO Admin VALUES ('admin_8', 'pw4453871');
 INSERT INTO Admin VALUES ('admin_9', 'pw2287622');
 INSERT INTO Admin VALUES ('admin_10', 'pw9014274');
+INSERT INTO Admin VALUES ('admin_11', 'pw0254458');
+INSERT INTO Admin VALUES ('admin_12', 'pw9391491');
+INSERT INTO Admin VALUES ('admin_13', 'pw2165993');
+INSERT INTO Admin VALUES ('admin_14', 'pw0290407');
+INSERT INTO Admin VALUES ('admin_15', 'pw4378875');
+INSERT INTO Admin VALUES ('admin_16', 'pw2330844');
+INSERT INTO Admin VALUES ('admin_17', 'pw2187810');
+INSERT INTO Admin VALUES ('admin_18', 'pw2897816');
+INSERT INTO Admin VALUES ('admin_19', 'pw8375779');
+INSERT INTO Admin VALUES ('admin_20', 'pw6422943');
+INSERT INTO Admin VALUES ('admin_21', 'pw9925434');
+INSERT INTO Admin VALUES ('admin_22', 'pw1208899');
+INSERT INTO Admin VALUES ('admin_23', 'pw7214844');
+INSERT INTO Admin VALUES ('admin_24', 'pw9364405');
+INSERT INTO Admin VALUES ('admin_25', 'pw8300356');
+INSERT INTO Admin VALUES ('admin_26', 'pw3033685');
+INSERT INTO Admin VALUES ('admin_27', 'pw8824790');
+INSERT INTO Admin VALUES ('admin_28', 'pw5052838');
+INSERT INTO Admin VALUES ('admin_29', 'pw0345258');
+INSERT INTO Admin VALUES ('admin_30', 'pw7974042');
+INSERT INTO Admin VALUES ('admin_31', 'pw1730074');
+INSERT INTO Admin VALUES ('admin_32', 'pw7030407');
+INSERT INTO Admin VALUES ('admin_33', 'pw3747030');
+INSERT INTO Admin VALUES ('admin_34', 'pw5084264');
+INSERT INTO Admin VALUES ('admin_35', 'pw5209384');
+INSERT INTO Admin VALUES ('admin_36', 'pw4896935');
+INSERT INTO Admin VALUES ('admin_37', 'pw0434872');
+INSERT INTO Admin VALUES ('admin_38', 'pw9831877');
+INSERT INTO Admin VALUES ('admin_39', 'pw3935996');
+INSERT INTO Admin VALUES ('admin_40', 'pw5022385');
+INSERT INTO Admin VALUES ('admin_41', 'pw7705231');
+INSERT INTO Admin VALUES ('admin_42', 'pw8602897');
+INSERT INTO Admin VALUES ('admin_43', 'pw5137716');
+INSERT INTO Admin VALUES ('admin_44', 'pw5777948');
+INSERT INTO Admin VALUES ('admin_45', 'pw2692794');
+INSERT INTO Admin VALUES ('admin_46', 'pw9571162');
+INSERT INTO Admin VALUES ('admin_47', 'pw7836552');
+INSERT INTO Admin VALUES ('admin_48', 'pw8861795');
+INSERT INTO Admin VALUES ('admin_49', 'pw8091399');
+INSERT INTO Admin VALUES ('admin_50', 'pw5613578');
 --------------------------------------------------------
 --USER (done)
 INSERT INTO Users VALUES ('user_1', 'pw1343642', '민서호', '대구 서구', '01076096244');
@@ -568,7 +608,7 @@ INSERT INTO THINGRANK VALUES ('for_match33', '18390076', 'user_24', 33, '7852-12
 INSERT INTO THINGRANK VALUES ('for_match34', '23317507', 'user_22', 34, '1836-6-4', '3642-3-5');
 INSERT INTO THINGRANK VALUES ('for_match35', '23178356', 'user_32', 35, '4196-10-13', '2844-6-16');
 INSERT INTO THINGRANK VALUES ('for_match36', '19914111', 'user_34', 36, '4380-11-21', '9610-4-12');
-INSERT INTO THINGRANK VALUES ('for_match37', '18223652', 'user_25', 37, '1835-2-30', '1775-9-25');
+INSERT INTO THINGRANK VALUES ('for_match37', '18223652', 'user_25', 37, '1835-2-3', '1775-9-25');
 INSERT INTO THINGRANK VALUES ('for_match38', '17126506', 'user_47', 38, '9670-6-17', '8975-9-28');
 INSERT INTO THINGRANK VALUES ('for_match39', '18070554', 'user_48', 39, '4038-2-10', '1558-1-28');
 INSERT INTO THINGRANK VALUES ('for_match40', '12518380', 'user_17', 40, '7594-1-12', '6664-12-22');
@@ -636,7 +676,7 @@ INSERT INTO RECEIPT VALUES ('receipt_49', '6425-8-20', 'http://img49.jpg');
 INSERT INTO RECEIPT VALUES ('receipt_50', '1458-4-21', 'http://img50.jpg');
 ------------------------------------------------
 --FOLLOW (done)
-desc follow;
+SELECT * FROM follow;
 INSERT INTO FOLLOW VALUES ('f00001', 'user_32', 'user_46', '4959-7-22');
 INSERT INTO FOLLOW VALUES ('f00002', 'user_50', 'user_8', '6152-4-14');
 INSERT INTO FOLLOW VALUES ('f00003', 'user_3', 'user_20', '7092-6-10');
@@ -680,16 +720,17 @@ INSERT INTO FOLLOW VALUES ('f00040', 'user_10', 'user_2', '1025-4-10');
 INSERT INTO FOLLOW VALUES ('f00041', 'user_8', 'user_37', '7552-11-20');
 INSERT INTO FOLLOW VALUES ('f00042', 'user_20', 'user_13', '3246-12-16');
 INSERT INTO FOLLOW VALUES ('f00043', 'user_34', 'user_36', '7298-4-7');
-INSERT INTO FOLLOW VALUES ('f00044', 'user_10', 'user_2', '7523-2-14');
+INSERT INTO FOLLOW VALUES ('f00044', 'user_10', 'user_3', '7523-2-14');
 INSERT INTO FOLLOW VALUES ('f00045', 'user_46', 'user_46', '4133-11-30');
 INSERT INTO FOLLOW VALUES ('f00046', 'user_45', 'user_3', '8929-4-28');
 INSERT INTO FOLLOW VALUES ('f00047', 'user_19', 'user_11', '6284-12-1');
 INSERT INTO FOLLOW VALUES ('f00048', 'user_21', 'user_21', '8760-3-2');
 INSERT INTO FOLLOW VALUES ('f00049', 'user_35', 'user_25', '1561-8-27');
 INSERT INTO FOLLOW VALUES ('f00050', 'user_43', 'user_37', '7883-2-16');
+
 ------------------------------------------------
 --RANKING_SNAPSHOT (done)
-desc ranking_snapshot;
+SELECT * FROM RANKING_SNAPSHOT;
 INSERT INTO RANKING_SNAPSHOT
 VALUES ('snapshot_1', 'for_match50', 'user_48', '어쩐지 오늘 알람이 안 울려', '1446-3-1', '4762-11-24', 3762959458, 3369801087);
 INSERT INTO RANKING_SNAPSHOT
@@ -794,6 +835,7 @@ INSERT INTO RANKING_SNAPSHOT
 VALUES ('snapshot_49', 'for_match37', 'user_10', '50줄 체워야되서 쓰는데 뭘 써야될까요', '4460-3-5', '7646-4-29', 1762188277, 9275102832);
 INSERT INTO RANKING_SNAPSHOT
 VALUES ('snapshot_50', 'for_match35', 'user_11', '50줄 체웠나 확인해볼까요?', '5828-5-14', '1457-8-2', 1427946446, 9704019003);
+DESC RANKING_SNAPSHOT;
 ------------------------------------------------
 --VERIFY (done)
 --(admin_id,신청한 날짜, 인증된 날짜) 추가 필요
@@ -901,13 +943,15 @@ INSERT INTO SNAPSHOT_COMMENT VALUES ('comment48', 'snapshot_40', 'user_18', 'com
 INSERT INTO SNAPSHOT_COMMENT VALUES ('comment49', 'snapshot_4', 'user_15', 'commt2', '8962-1-6', '9662-6-17'); 
 INSERT INTO SNAPSHOT_COMMENT VALUES ('comment50', 'snapshot_10', 'user_42', 'commt1', '8181-11-21', '4698-4-11');
 
-select count(*) from admin; --10
-select count(*) from follow; -- 49
-select count(*) from ranking_snapshot; --49
-select count(*) from receipt; --55
-select count(*) from snapshot_comment; --53
+select count(*) from admin; --50
+select count(*) from follow; -- 50
+select count(*) from ranking_snapshot; --50
+select count(*) from receipt; --50
+select count(*) from snapshot_comment; --50
 select count(*) from thing; --334
-select count(*) from thingrank; --49
+select count(*) from thingrank; --50
 select count(*) from users; --50
 select count(*) from verify; --50
+-- total : 690 tuples
 commit;
+
