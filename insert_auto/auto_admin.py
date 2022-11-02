@@ -22,7 +22,7 @@ def auto_admin(n):
         admin_tup.append([admin_id, pw]) 
     
     for ad in admin_tup:
-        insert_quote.append('INSERT INTO Admin' + str(tuple(admin_attr)) +' VALUES ' + str(tuple(ad)) + ';') 
+        insert_quote.append('INSERT INTO Admin VALUES ' + str(tuple(ad)) + ';') 
 
     return insert_quote
 result = auto_admin(n)

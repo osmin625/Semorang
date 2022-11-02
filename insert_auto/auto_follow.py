@@ -16,14 +16,14 @@ def auto_follow(u, n):
     follow_attr = ['follow_id', 'following_uid', 'follow_uid', 'follow_date']
     follow_tup = []
     for i in range(n):
-        follow_id = 'f'+str(i+1).zfill(5)
+        follow_id = 'follow_'+str(i+1)
         
         following_uid = 'user_' + str(u[i][0])
         follow_uid = 'user_' + str(u[i][1])
         
-        year = str(random.randint(1000,9999))
+        year = str(random.randint(2020,2022))
         month = str(random.randint(1,12))
-        day = str(random.randint(1,30))
+        day = str(random.randint(1,28))
         date = year + '-' + month + '-' + day
         
         follow_tup.append([follow_id, following_uid, follow_uid, date]) 
