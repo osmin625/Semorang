@@ -20,7 +20,7 @@ def auto_receipt(n):
     for i in range(n):
         receipt_id = 'receipt_'+str(i+1)
         
-        year = str(random.randint(1000,9999))
+        year = str(random.randint(2019,2022))
         month = str(random.randint(1,12))
         day = str(random.randint(1,30))
         date = year + '-' + month + '-' + day
