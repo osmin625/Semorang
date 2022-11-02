@@ -21,7 +21,7 @@ def auto_comment(n):
     for i in range(n):
         comment_id = 'cmt_'+str(i+1)
 
-        snapshot_id = 'snapshot_' + str(random.randint(1,99))
+        snapshot_id = 'snap_' + str(random.randint(1,99))
 
         user = 'user_' + str(random.randint(1,50))
         

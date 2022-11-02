@@ -50,8 +50,8 @@ def auto_user(n):
 
     return insert_quote
 result = auto_user(n)
-# for r in result:
-#     print(r)
+for r in result:
+    print(r)
 
 
 """
