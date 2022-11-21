@@ -152,6 +152,8 @@ public class phase3_jdbc {
 		}
 	}
 	public static void ranking_board(Connection conn, Statement stmt) {
+		Scanner sc = new Scanner(System.in);
+		
 		System.out.println("choose category by number");
 		System.out.println("1. 한식");
 		System.out.println("2. 중식");
@@ -168,10 +170,75 @@ public class phase3_jdbc {
 		System.out.println("13. 기타음식업");
 		System.out.println("14. 부페");
 		System.out.println("15. 통합");
+		System.out.println("choose your category what you are looking for");
 		
+		String cate_str = "";
+		int category_num = sc.nextInt();
+		// category check (나중에 함수로 뺄거임)
+		if (category_num < 11) {
+			cate_str = String.valueOf(category_num);
+			if (category_num == 10) {
+				cate_str = "Q" + cate_str;
+			} else {
+				cate_str = "Q0" + cate_str;
+			}
+			
+		} else if(category_num>=11 && category_num <15) {
+			cate_str = String.valueOf(category_num+1);
+			cate_str = "Q" + cate_str;
+		} else if(category_num == 15) {
+			cate_str = "Q";
+		}
+		//여기까지
 		
+		//계산 알고리즘 필요
 		ResultSet rs = null;
-//		String sql = "SELECT "
+		String sql = "select user_id, ranks, thing_name, categories, THING_CNT "
+				+ "from (select user_id, ranks, thing_id, thing_name "
+				+ "from thingrank natural join thing "
+				+ "order by user_id, ranks) join "
+				+ "(select thing_id, COUNT(*) THING_CNT "
+				+ "from thingrank "
+				+ "group by thing_id) using(thing_id) "
+				+ "where categories like '" + cate_str + "%'";
+		try {
+			System.out.println(sql);
+			rs = stmt.executeQuery(sql);
+			System.out.println("check2");
+			int cnt = rs.getRow();
+			String[][] thingrank = new String[cnt][6]; //6번째 인덱스에 score 
+			int ind = 0;
+			// put thingrank into array for calculating score
+			while(rs.next()) {
+				String usr_id = rs.getString(1);
+				String ranks = rs.getString(2);
+				String t_name = rs.getString(3);
+				String cate = rs.getString(4);
+				String cnt_rank = rs.getString(5);
+				thingrank[ind][0] = usr_id;
+				thingrank[ind][1] = ranks;
+				thingrank[ind][2] = t_name;
+				thingrank[ind][3] = cate;
+				thingrank[ind][4] = cnt_rank;
+				thingrank[ind][5] = "0";
+				if (ind > 1 && thingrank[ind][0].equals(thingrank[ind-1][0])) {
+					int cnt_user = Integer.valueOf(thingrank[ind-1][1])-1;
+					int dif = 4/cnt_user;
+					for (int i=0; i < cnt_user+1; i++) {
+						thingrank[i][5] = String.valueOf(1 + dif * i);
+					}
+				}
+				ind += 1;
+			}
+		
+			for (int i = 1; i < cnt; i++) {
+				System.out.println(thingrank[i]);
+			}
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public static int login_ad(String in_userID, String in_userPassword, Connection conn, Statement stmt) { 
@@ -180,7 +247,6 @@ public class phase3_jdbc {
 		try {
 			rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				// Fill out your code
 				String ad_id = rs.getString(1);
 				String ad_pwd = rs.getString(2);
 				if (ad_id == in_userID) {
