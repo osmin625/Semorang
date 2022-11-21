@@ -155,22 +155,10 @@ public class phase3_jdbc {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("choose category by number");
-		System.out.println("1. 한식");
-		System.out.println("2. 중식");
-		System.out.println("3. 일식/수산물");
-		System.out.println("4. 분식");
-		System.out.println("5. 닭/오리요리");
-		System.out.println("6. 양식");
-		System.out.println("7. 패스트푸드");
-		System.out.println("8. 제과제빵떡케익");
-		System.out.println("9. 유흥주점");
-		System.out.println("10. 별식/퓨전요리");
-		System.out.println("11. 커피점/카페");
-		System.out.println("12. 음식배달서비스");
-		System.out.println("13. 기타음식업");
-		System.out.println("14. 부페");
-		System.out.println("15. 통합");
-		System.out.println("choose your category what you are looking for");
+		System.out.println("1. 한식\t\t2. 중식\t\t3. 일식/수산물\t4. 분식\t\t5. 닭/오리요리\n"
+				+ "6. 양식\t\t7. 패스트푸드\t8. 제과제빵떡케익\t9. 유흥주점\t10. 별식/퓨전요리\n"
+				+ "11. 커피점/카페\t12. 음식배달서비스\t13. 기타음식업\t14. 부페\t\t15. 통합");
+		System.out.println("choose your category(by number) what you are looking for");
 		
 		String cate_str = "";
 		int category_num = sc.nextInt();
@@ -193,19 +181,34 @@ public class phase3_jdbc {
 		
 		//계산 알고리즘 필요
 		ResultSet rs = null;
+		ResultSet rs_cnt = null;
 		String sql = "select user_id, ranks, thing_name, categories, THING_CNT "
-				+ "from (select user_id, ranks, thing_id, thing_name "
+				+ "from (select user_id, ranks, thing_id, categories, thing_name "
 				+ "from thingrank natural join thing "
 				+ "order by user_id, ranks) join "
 				+ "(select thing_id, COUNT(*) THING_CNT "
 				+ "from thingrank "
 				+ "group by thing_id) using(thing_id) "
 				+ "where categories like '" + cate_str + "%'";
+		
+		// query count for array
+		String sql_cnt = "select count(*) "
+				+ "from (select user_id, ranks, thing_id, categories, thing_name "
+				+ "from thingrank natural join thing "
+				+ "order by user_id, ranks) join "
+				+ "(select thing_id, COUNT(*) THING_CNT "
+				+ "from thingrank "
+				+ "group by thing_id) using(thing_id) "
+				+ "where categories like '" + cate_str + "%'";
+		
 		try {
-			System.out.println(sql);
+			rs_cnt = stmt.executeQuery(sql_cnt);
+			int cnt = 0;
+			while (rs_cnt.next()) {
+				cnt = Integer.valueOf(rs_cnt.getString(1));
+			}
 			rs = stmt.executeQuery(sql);
-			System.out.println("check2");
-			int cnt = rs.getRow();
+			
 			String[][] thingrank = new String[cnt][6]; //6번째 인덱스에 score 
 			int ind = 0;
 			// put thingrank into array for calculating score
@@ -215,24 +218,34 @@ public class phase3_jdbc {
 				String t_name = rs.getString(3);
 				String cate = rs.getString(4);
 				String cnt_rank = rs.getString(5);
+
 				thingrank[ind][0] = usr_id;
 				thingrank[ind][1] = ranks;
 				thingrank[ind][2] = t_name;
 				thingrank[ind][3] = cate;
 				thingrank[ind][4] = cnt_rank;
 				thingrank[ind][5] = "0";
-				if (ind > 1 && thingrank[ind][0].equals(thingrank[ind-1][0])) {
-					int cnt_user = Integer.valueOf(thingrank[ind-1][1])-1;
-					int dif = 4/cnt_user;
+				
+				// calculating score
+				if (ind == cnt-1 || (ind > 1 && !thingrank[ind][0].equals(thingrank[ind-1][0]))) {
+					float cnt_user = 0;
+					if (ind == cnt-1) {
+						cnt_user = Integer.valueOf(thingrank[ind-1][1]);
+						ind += 1;
+					} else {
+						cnt_user = Integer.valueOf(thingrank[ind-1][1])-1;
+					}
+					float dif = 4/cnt_user;
 					for (int i=0; i < cnt_user+1; i++) {
-						thingrank[i][5] = String.valueOf(1 + dif * i);
+						thingrank[(ind-1)-i][5] = String.valueOf(1 + dif * i);
 					}
 				}
 				ind += 1;
 			}
-		
-			for (int i = 1; i < cnt; i++) {
-				System.out.println(thingrank[i]);
+//			System.out.println("check1");
+			for (int i = 0; i < cnt; i++) {
+//				System.out.println("check2");
+				System.out.println(thingrank[i][0] + " " + thingrank[i][1] + " " + thingrank[i][2] + " " + thingrank[i][3] + " " + thingrank[i][5]);
 			}
 			rs.close();
 		} catch (Exception e) {
@@ -272,7 +285,6 @@ public class phase3_jdbc {
 		try {
 			rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				// Fill out your code
 				String usr_id = rs.getString(1);
 				String pwd = rs.getString(2);
 				if (usr_id.equals(in_userID)) {	
@@ -315,13 +327,13 @@ public class phase3_jdbc {
 		System.out.println("your phone number? : ");
 		phone_num = sc.next();
 		try {
-		sql = sql +"'" + new_id + "', '" + new_pwd + "', '" + name +"', '" + region + "', '" + phone_num + "')";
-		res = stmt.executeUpdate(sql);
-		if (res != 0) {
-            System.out.println("success!");
-        } else {
-            System.out.println("failed.. (already existing id)");
-        }
+			sql = sql +"'" + new_id + "', '" + new_pwd + "', '" + name +"', '" + region + "', '" + phone_num + "')";
+			res = stmt.executeUpdate(sql);
+			if (res != 0) {
+	            System.out.println("success!");
+	        } else {
+	            System.out.println("failed.. (already existing id)");
+	        }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
