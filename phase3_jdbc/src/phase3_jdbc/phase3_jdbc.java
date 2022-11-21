@@ -6,30 +6,29 @@ import java.io.*;
 
 public class phase3_jdbc {
 	
-	
-	public static final String url = "jdbc:oracle:thin:@SEMODB_medium?TNS_ADMIN=C:\\\\oracle\\\\Wallet_SEMODB";
-	public static final String user = "ADMIN";
-	public static final String password = "Semorang1234";
+	public static final String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+	public static final String user = "test";
+	public static final String password = "test";
 
 	public static void main(String[] args) {
 		//분류를 위한 hashmap
-		HashMap<String, String> category = new HashMap<String, String>();
-		
-		category.put("Q01", "한식");
-		category.put("Q02", "중식");
-		category.put("Q03", "일식/수산물");
-		category.put("Q04", "분식");
-		category.put("Q05", "닭/오리요리");
-		category.put("Q06", "양식");
-		category.put("Q07", "패스트푸드");
-		category.put("Q08", "제과제빵떡케익");
-		category.put("Q09", "유흥주점");
-		category.put("Q10", "별식/퓨전요리");
-		// Q11은 없음
-		category.put("Q12", "커피점/카페");
-		category.put("Q13", "음식배달서비스");
-		category.put("Q14", "기타음식업");
-		category.put("Q15", "부페");
+//		HashMap<String, String> category = new HashMap<String, String>();
+//		
+//		category.put("Q01", "한식");
+//		category.put("Q02", "중식");
+//		category.put("Q03", "일식/수산물");
+//		category.put("Q04", "분식");
+//		category.put("Q05", "닭/오리요리");
+//		category.put("Q06", "양식");
+//		category.put("Q07", "패스트푸드");
+//		category.put("Q08", "제과제빵떡케익");
+//		category.put("Q09", "유흥주점");
+//		category.put("Q10", "별식/퓨전요리");
+//		// Q11은 없음
+//		category.put("Q12", "커피점/카페");
+//		category.put("Q13", "음식배달서비스");
+//		category.put("Q14", "기타음식업");
+//		category.put("Q15", "부페");
 		
 		
 		
@@ -42,9 +41,9 @@ public class phase3_jdbc {
 			System.err.println("error = " + e.getMessage());
 			System.exit(1);
 		}
-		System.out.println("check1");
+
 		try {
-			conn = DriverManager.getConnection(url, user, password); 
+			conn = DriverManager.getConnection(url, user, password);
 			System.out.println("Oracle Connected.");
 			stmt = conn.createStatement(); 
 		} catch(SQLException ex) {
@@ -52,9 +51,7 @@ public class phase3_jdbc {
 			System.err.println("Cannot get a connection: " + ex.getLocalizedMessage());
 			System.err.println("Cannot get a connection: " + ex.getMessage());
 			System.exit(1);
-		}
-		System.out.println("check2");
-		
+		}		
 
 		Scanner sc = new Scanner(System.in);
 		
@@ -113,21 +110,21 @@ public class phase3_jdbc {
 		if (res == 1) {
 			//user access
 			while(true) {
-				System.out.println("===============================");
-				System.out.println("=Press number for your purpose=");
-				System.out.println("=-----------------------------=");
-				System.out.println("=	1. Ranking Borad 	  =");
-				System.out.println("=	2. User Ranking 	  =");
-				System.out.println("=	3. Snapshot board	  =");
-				System.out.println("=	4. My page  	 	  =");
-				System.out.println("=-----------------------------=");
-				System.out.println("=	   exit(-1) 		  =");
-				System.out.println("===============================");
-				
+				System.out.println("==============================");
+				System.out.println("Press number for your purpose");
+				System.out.println("-----------------------------");
+				System.out.println("	1. Ranking Borad 	  ");
+				System.out.println("	2. User Ranking 	  ");
+				System.out.println("	3. Snapshot board	  ");
+				System.out.println("	4. My page  	 	  ");
+				System.out.println("-----------------------------");
+				System.out.println("	exit(-1) 		  ");
+				System.out.println("==============================");
+				System.out.println("Choose menu number");
 				menu = sc.nextInt();
 				
 				if (menu == 1) {
-					ranking_board(conn, stmt, category);
+					ranking_board(conn, stmt);
 				} else if (menu == 2) {
 					
 				} else if (menu == 3) {
@@ -154,27 +151,27 @@ public class phase3_jdbc {
 			e.printStackTrace();
 		}
 	}
-	public static void ranking_board(Connection conn, Statement stmt, HashMap cate) {
-		System.out.println("choose category");
-		System.out.println("1. ");
-		System.out.println("2. ");
-		System.out.println("3. ");
-		System.out.println("4. ");
-		System.out.println("5. ");
-		System.out.println("6. ");
-		System.out.println("7. ");
-		System.out.println("8. ");
-		System.out.println("9. ");
-		System.out.println("10. ");
-		System.out.println("11. ");
-		System.out.println("12. ");
-		System.out.println("13. ");
-		System.out.println("14. ");
-		System.out.println("15. ");
+	public static void ranking_board(Connection conn, Statement stmt) {
+		System.out.println("choose category by number");
+		System.out.println("1. 한식");
+		System.out.println("2. 중식");
+		System.out.println("3. 일식/수산물");
+		System.out.println("4. 분식");
+		System.out.println("5. 닭/오리요리");
+		System.out.println("6. 양식");
+		System.out.println("7. 패스트푸드");
+		System.out.println("8. 제과제빵떡케익");
+		System.out.println("9. 유흥주점");
+		System.out.println("10. 별식/퓨전요리");
+		System.out.println("11. 커피점/카페");
+		System.out.println("12. 음식배달서비스");
+		System.out.println("13. 기타음식업");
+		System.out.println("14. 부페");
+		System.out.println("15. 통합");
 		
 		
 		ResultSet rs = null;
-		String sql = "SELECT "
+//		String sql = "SELECT "
 	}
 	
 	public static int login_ad(String in_userID, String in_userPassword, Connection conn, Statement stmt) { 
@@ -212,20 +209,22 @@ public class phase3_jdbc {
 				// Fill out your code
 				String usr_id = rs.getString(1);
 				String pwd = rs.getString(2);
-				if (usr_id == in_userID) {
-					if (pwd == in_userPassword) {
+				if (usr_id.equals(in_userID)) {	
+					if (pwd.equals(in_userPassword)) {
 						return 1; // connected
 					} else {
 						return 0; // wrong pwd
 					}
-				} else {
-					return -1; // no id
 				}
 			}
 			rs.close();
+			System.out.println("check2-2");
+			return -1; // no id
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return -2; // DB 오류 
 	}
 	
