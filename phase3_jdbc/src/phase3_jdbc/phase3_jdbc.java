@@ -219,7 +219,8 @@ public class phase3_jdbc {
 			int temp_ind = 0;
 			float cnt_user = 0;
 			
-			System.out.println("count of ranks: " + String.valueOf(cnt));
+//			System.out.println("count of ranks: " + String.valueOf(cnt));
+			
 			// put thingrank into array for calculating score
 			while(rs.next()) {
 				
@@ -230,17 +231,26 @@ public class phase3_jdbc {
 				String thing_id = rs.getString(5);
 				String cnt_rank = rs.getString(6);
 				
-				thingrank[end][0] = usr_id;
-				thingrank[end][1] = ranks;
-				thingrank[end][2] = t_name;
-				thingrank[end][3] = cate;
-				thingrank[end][4] = cnt_rank;
-				thingrank[end][5] = thing_id; 
-				thingrank[end][6] = "0";
+				thingrank[end][0] = usr_id; //userid
+				thingrank[end][1] = ranks; //ranks that user chosed
+				thingrank[end][2] = t_name; //thing name
+				thingrank[end][3] = cate; //thing category
+				thingrank[end][4] = cnt_rank; //number of things in certain category
+				thingrank[end][5] = thing_id; // thing id
+				thingrank[end][6] = "0"; // score on certain category
 
 				//calculating score (two pointer algorithm)
 				if (end + 1 == cnt || (end > 0 && !thingrank[end][0].equals(thingrank[end-1][0]))) { // user_id가 바뀔때
 					float dif = 0;
+					
+					if (cnt_user == 1.0) {
+						thingrank[end-1][6] = String.valueOf(5.0);
+					} else {
+						dif = 4/(cnt_user-1);
+						for (int i = start; i < end; i++) {
+							thingrank[i][6] = String.valueOf(5 - dif * (i - start));
+						}
+					}
 					if (end + 1 == cnt) { //마지막 인덱스 처리
 						if (cnt_user == 1.0) {
 							thingrank[end][6] = String.valueOf(5.0);
@@ -249,15 +259,6 @@ public class phase3_jdbc {
 							float start_f = (float)start; 
 							dif = 4/(end_f - start_f);
 							for (int i = start; i < end + 1; i++) {
-								thingrank[i][6] = String.valueOf(5 - dif * (i - start));
-							}
-						}
-					}else {
-						if (cnt_user == 1.0) {
-							thingrank[end-1][6] = String.valueOf(5.0);
-						} else {
-							dif = 4/(cnt_user-1);
-							for (int i = start; i < end; i++) {
 								thingrank[i][6] = String.valueOf(5 - dif * (i - start));
 							}
 						}
@@ -271,8 +272,54 @@ public class phase3_jdbc {
 				end += 1;
 				
 			}
-			for (int i = 0; i < cnt; i++) {
-				System.out.println(thingrank[i][0] + "\t" + thingrank[i][1] + "\t" + thingrank[i][2] + "\t" + thingrank[i][5] + "\t" + thingrank[i][6]);
+			// 점수 여기까지 계산
+			
+			ResultSet t_rs = null;
+			ResultSet rs_ttl_cnt = null;
+			
+			
+			
+			String sql_eval_count = "select count(*) "
+					+ "from thing "
+					+ "where categories like '"+ cate_str +"%'";
+			rs_ttl_cnt = stmt.executeQuery(sql_eval_count);
+			int ttl_cnt = 0;
+			
+			while (rs_ttl_cnt.next()) {
+				ttl_cnt = Integer.valueOf(rs_ttl_cnt.getString(1));
+			}
+			
+			String sql_eval_score = "select thing_id, thing_name "
+					+ "from thing "
+					+ "where categories like '"+ cate_str +"%'";
+			t_rs = stmt.executeQuery(sql_eval_score);
+			
+			String[][] total_rank = new String[ttl_cnt][2];
+			int t_ind = 0;
+			
+			while (t_rs.next()) {
+
+				String th_id = t_rs.getString(1);
+				String th_name = t_rs.getString(2);
+				float sum = 0;
+				float eval_cnt = 0;
+				for (int i = 0; i < cnt; i++) {
+					if (th_id.equals(thingrank[i][5])) {
+						sum += Float.valueOf(thingrank[i][6]);
+						eval_cnt += 1;
+					}
+				}
+				float res_RB_score = sum/eval_cnt; 
+				total_rank[t_ind][0] = th_name;
+				total_rank[t_ind][1] = String.valueOf(res_RB_score);
+				t_ind += 1;
+			}
+			//랭크 출력
+			if (ttl_cnt == 0) {
+				System.out.println("No things are on Rank!");
+			}
+			for (int i = 0; i < ttl_cnt; i++) {
+				System.out.println("Rank #"+String.valueOf(i+1) + ".\t| " + total_rank[i][0] + total_rank[i][1]);
 			}
 			rs.close();
 		} catch (Exception e) {
