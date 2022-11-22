@@ -21,7 +21,9 @@ public class DBUtil {
 	}
 
 	public Connection getConnection() throws SQLException {
-		return DriverManager.getConnection(URL, USER_ID, USER_PWD);
+		Connection conn = DriverManager.getConnection(URL, USER_ID, USER_PWD);
+		conn.setAutoCommit(false);
+		return conn;
 	}
 
 	public void close(AutoCloseable... autoCloseables) {

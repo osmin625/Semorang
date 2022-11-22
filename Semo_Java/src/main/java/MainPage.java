@@ -11,19 +11,24 @@ public class MainPage {
 		// jdbc 드라이버 로딩
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("Driver Load Success");
+		}catch(ClassNotFoundException e){
+			System.err.println("error =" + e.getMessage());
+			System.exit(1);
 		}
 		
-		MyPageBoardDAO mpbDAO = new MyPageBoardDAO();
-		try {
-			List<MyPageBoardDTO> mybDTO_list = mpbDAO.getList_by_userId("user_1");
-			for (MyPageBoardDTO myPageBoardDTO : mybDTO_list) {
-				System.out.println(myPageBoardDTO.toString());
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		MyPageBoardDAO mpbDAO = new MyPageBoardDAO();
+//		try {
+//			List<MyPageBoardDTO> mybDTO_list = mpbDAO.getList_by_userId("user_1");
+////			System.out.printf(" %-10s | %-8s | %-10s | %-10s | %-10s | %-10s\n"
+////					,"user_id","user_name","ranks","thing_id","thing_name","categories");
+//			System.out.printf(" %-9s | %-10s \n","나의 순위","상호명");
+//			for (MyPageBoardDTO myPageBoardDTO : mybDTO_list) {
+//				System.out.println(myPageBoardDTO.toString_short());
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 		
 //		ThingDAO thingDAO = new ThingDAO();
 //		try {
@@ -35,8 +40,10 @@ public class MainPage {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//		
-//		ThingRankDAO thingRankDAO = new ThingRankDAO();
+		
+		ThingRankDAO thingRankDAO = new ThingRankDAO();
+		thingRankDAO.insert(17720028, "user_1", 3);
+//		thingRankDAO.delete(17720028,"user_1");
 //		try {
 //			List<ThingRankDTO> thingRankDTO_list= thingRankDAO.getTotalList();
 //			for (ThingRankDTO thingRankDTO : thingRankDTO_list) {
@@ -65,22 +72,5 @@ public class MainPage {
 //		}catch (SQLException e2) {
 //			e2.printStackTrace();
 //		}
-		
-		
-		
 	}
-	private static Connection getConnection() {
-		Connection conn = null;
-		try {
-			String url = "jdbc:oracle:thin:@SEMODB_high?TNS_ADMIN=C:\\\\OracleDBproject\\\\Wallet_SEMODB";
-			String user = "ADMIN";
-			String password = "Semorang1234";
-			conn = DriverManager.getConnection(url, user, password);
-		}catch (SQLException e2) {
-			e2.printStackTrace();
-		}
-		return conn;
-	}
-	
-
 }

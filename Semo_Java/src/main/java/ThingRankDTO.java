@@ -1,3 +1,5 @@
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -21,9 +23,9 @@ public class ThingRankDTO {
 		this.update_date = LocalDateTime.of(2000, 1, 1, 0, 0);
 	}
 
-	public ThingRankDTO(int thing_id, String user_id, int ranks) {
+	public ThingRankDTO(String thing_rank_id,int thing_id, String user_id, int ranks) {
 		super();
-//		this.thing_rank_id = 
+		this.thing_rank_id = thing_rank_id;
 		this.thing_id = thing_id;
 		this.user_id = user_id;
 		this.ranks = ranks;
@@ -64,14 +66,14 @@ public class ThingRankDTO {
 	public void setRanks(int ranks) {
 		this.ranks = ranks;
 	}
-	public LocalDateTime getThingking_date() {
-		return thingking_date;
+	public Timestamp getThingking_date() {
+		return Timestamp.valueOf(thingking_date);
 	}
 	public void setThingking_date(Date thingking_date) {
 		this.thingking_date = thingking_date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 	}
-	public LocalDateTime getUpdate_daet() {
-		return update_date;
+	public Timestamp getUpdate_date() {
+		return Timestamp.valueOf(update_date);
 	}
 	public void setUpdate_date(Date update_date) {
 		this.update_date = update_date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();

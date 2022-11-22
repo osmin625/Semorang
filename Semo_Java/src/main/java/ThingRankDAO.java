@@ -1,12 +1,89 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ThingRankDAO {
 	private DBUtil dbUtil = DBUtil.getInstance();
+	
+	// 다음에 쓸 thingrank_id를 생성해주는 메소드
+	public String get_next_id() {
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			String sql = "SELECT * FROM THINGRANK";
+			pstmt = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			rs = pstmt.executeQuery();
+			rs.last();
+			count = rs.getRow()+1;
+		}
+		catch (SQLException e) {
+			System.err.println("ThingRankDAO : get_next_id() 오류");
+			e.printStackTrace();
+		}
+		finally {
+			dbUtil.close(rs,pstmt,conn);
+		}
+		return "tr_"+count;
+	}
+	
+	// 새로운 튜플 insert하기
+	public void insert(int thing_id, String user_id, int ranks) {
+		ThingRankDTO trDTO = new ThingRankDTO(get_next_id(), thing_id, user_id, ranks);
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			String sql = "INSERT INTO THINGRANK VALUES(?,?,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, trDTO.getThing_rank_id());
+			pstmt.setInt(2, trDTO.getThing_id());
+			pstmt.setString(3, trDTO.getUser_id());
+			pstmt.setInt(4, trDTO.getRanks());
+			pstmt.setTimestamp(5, trDTO.getThingking_date());
+			pstmt.setTimestamp(6, trDTO.getUpdate_date());
+			rs = pstmt.executeQuery();
+			System.out.println("ThingRank INSERT 완료\n"+trDTO.toString());
+			conn.commit();
+		}
+		catch (SQLException e) {
+			System.err.println("ThingRankDAO : insert 오류");
+			e.printStackTrace();
+		}
+		finally {
+			dbUtil.close(rs,pstmt,conn);
+		}
+	}
+	
+	public void delete(int thing_id, String user_id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			String sql = "DELETE FROM THINGRANK TR WHERE TR.THING_ID = ? AND TR.USER_ID = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,thing_id);
+			pstmt.setString(2, user_id);
+			rs = pstmt.executeQuery();
+			System.out.println("ThingRank DELETE 완료\n"+ "thing_id: " + thing_id + " user_id: "+user_id);
+			conn.commit();
+		}
+		catch (SQLException e) {
+			System.err.println("ThingRankDAO : insert 오류");
+			e.printStackTrace();
+		}
+		finally {
+			dbUtil.close(rs,pstmt,conn);
+		}
+	}
 	
 	public List<ThingRankDTO> getTotalList() throws SQLException{
 		Connection conn = null;
