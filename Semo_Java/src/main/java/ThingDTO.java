@@ -24,6 +24,7 @@ public class ThingDTO {
 		bubjungdong = "";
 	}
 	
+	// 카테고리 코드로 받아와서 한글로 변환하여 저장
 	public void setCategories(String categories) {
 		String temp;
 		String c =categories.substring(0,3);

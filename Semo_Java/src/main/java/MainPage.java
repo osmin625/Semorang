@@ -5,8 +5,6 @@ import java.util.List;
 
 public class MainPage {
 	
-
-	
 	public static void main(String[] args) {
 		// jdbc 드라이버 로딩
 		try {
@@ -17,7 +15,11 @@ public class MainPage {
 			System.exit(1);
 		}
 		
-//		MyPageBoardDAO mpbDAO = new MyPageBoardDAO();
+		MyPageDAO mpDAO = new MyPageDAO();
+		mpDAO.print_total_trBoard("user_1");
+		System.out.println("-------------------------");
+		mpDAO.print_category_trBoard("user_1", "한식");
+		
 //		try {
 //			List<MyPageBoardDTO> mybDTO_list = mpbDAO.getList_by_userId("user_1");
 ////			System.out.printf(" %-10s | %-8s | %-10s | %-10s | %-10s | %-10s\n"
@@ -40,37 +42,13 @@ public class MainPage {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+//		
 		
-		ThingRankDAO thingRankDAO = new ThingRankDAO();
-		thingRankDAO.insert(17720028, "user_1", 3);
+//		ThingRankDAO thingRankDAO = new ThingRankDAO();
+//		thingRankDAO.insert(17720028, "user_1", 3);
+//		thingRankDAO.update(17720028, "user_1", 1);
 //		thingRankDAO.delete(17720028,"user_1");
-//		try {
-//			List<ThingRankDTO> thingRankDTO_list= thingRankDAO.getTotalList();
-//			for (ThingRankDTO thingRankDTO : thingRankDTO_list) {
-//				System.out.println(thingRankDTO.toString());
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
+//		thingRankDAO.printTotalList();
 		
-		
-//		Connection conn =getConnection();
-//		Statement stmt = null;
-//		ResultSet rs = null;
-//		String admin_id = null;
-//		String admin_pw = null;
-//		try {
-//			stmt = conn.createStatement();
-//			String sql = "Select * from Thing ";
-//			rs = stmt.executeQuery(sql);
-//			while(rs.next()) {
-//				admin_id =rs.getString("admin_id");
-//				admin_pw = rs.getString(2);
-//			}
-//			System.out.println("admin_id : " + admin_id);
-//			System.out.println("admin_pw : " + admin_pw);
-//		}catch (SQLException e2) {
-//			e2.printStackTrace();
-//		}
 	}
 }

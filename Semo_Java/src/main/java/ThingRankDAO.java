@@ -34,6 +34,7 @@ public class ThingRankDAO {
 	}
 	
 	// 새로운 튜플 insert하기
+
 	public void insert(int thing_id, String user_id, int ranks) {
 		ThingRankDTO trDTO = new ThingRankDTO(get_next_id(), thing_id, user_id, ranks);
 		Connection conn = null;
@@ -62,6 +63,31 @@ public class ThingRankDAO {
 		}
 	}
 	
+	public void update(int thing_id, String user_id,int new_ranks) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			String sql = "UPDATE THINGRANK "
+					+ "SET RANKS = ? "
+					+ "WHERE THING_ID = ? "
+					+ " AND USER_ID = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,new_ranks);
+			pstmt.setInt(2,thing_id);
+			pstmt.setString(3, user_id);
+			rs = pstmt.executeQuery();
+			System.out.println("ThingRank UPDATE 완료\n"+ "thing_id: " + thing_id + " user_id: "+user_id + " 변경한 ranks: " + new_ranks);
+			conn.commit();
+		}catch (SQLException e) {
+			System.err.println("ThingRankDAO : update 오류");
+			e.printStackTrace();
+		}finally {
+			dbUtil.close(rs,pstmt,conn);
+		}
+	}
+	
 	public void delete(int thing_id, String user_id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -77,11 +103,22 @@ public class ThingRankDAO {
 			conn.commit();
 		}
 		catch (SQLException e) {
-			System.err.println("ThingRankDAO : insert 오류");
+			System.err.println("ThingRankDAO : delete 오류");
 			e.printStackTrace();
 		}
 		finally {
 			dbUtil.close(rs,pstmt,conn);
+		}
+	}
+	
+	public void printTotalList() {
+		try {
+			List<ThingRankDTO> thingRankDTO_list= getTotalList();
+			for (ThingRankDTO thingRankDTO : thingRankDTO_list) {
+				System.out.println(thingRankDTO.toString());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 	

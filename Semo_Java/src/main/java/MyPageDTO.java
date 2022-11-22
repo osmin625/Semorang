@@ -1,5 +1,5 @@
 
-public class MyPageBoardDTO {
+public class MyPageDTO {
 	private String u_user_id;
 	private String u_name;
 	private int tr_ranks;
@@ -7,7 +7,7 @@ public class MyPageBoardDTO {
 	private String t_thing_name;
 	private String t_categories;
 	
-	MyPageBoardDTO(){
+	MyPageDTO(){
 		super();
 		u_user_id = "";
 		u_name = "";
@@ -24,6 +24,9 @@ public class MyPageBoardDTO {
 		return result;
 	}
 	
+	/**
+	 * ranks랑 thing_name만 출력
+	 */
 	public String toString_short() {
 		String result= String.format(" %-10d | %-10s ",tr_ranks,t_thing_name);
 		return result;

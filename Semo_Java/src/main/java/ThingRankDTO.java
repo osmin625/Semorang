@@ -32,7 +32,6 @@ public class ThingRankDTO {
 		LocalDateTime now = LocalDateTime.now();
 		this.thingking_date = now;
 		this.update_date = now;
-		
 	}
 	
 	@Override
