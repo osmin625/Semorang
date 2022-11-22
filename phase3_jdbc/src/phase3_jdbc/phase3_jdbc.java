@@ -105,7 +105,6 @@ public class phase3_jdbc {
 		}
 		
 		int menu = 0;
-		// put query here
 		
 		if (res == 1) {
 			//user access
@@ -137,7 +136,7 @@ public class phase3_jdbc {
 			}
  		}
 		else if (res == 123) {
-			//admin access
+			//admin access res 변경 필요
 		}
 		
 		// Release database resources.
@@ -151,6 +150,7 @@ public class phase3_jdbc {
 			e.printStackTrace();
 		}
 	}
+	// 장르별 평점내려면 장르에 해당되는 
 	public static void ranking_board(Connection conn, Statement stmt) {
 		Scanner sc = new Scanner(System.in);
 		
@@ -182,24 +182,26 @@ public class phase3_jdbc {
 		//계산 알고리즘 필요
 		ResultSet rs = null;
 		ResultSet rs_cnt = null;
-		String sql = "select user_id, ranks, thing_name, categories, THING_CNT "
+		String sql = "select user_id, ranks, thing_name, categories, thing_id, THING_CNT "
 				+ "from (select user_id, ranks, thing_id, categories, thing_name "
 				+ "from thingrank natural join thing "
+				+ "where categories like '"+cate_str+"%' "
 				+ "order by user_id, ranks) join "
 				+ "(select thing_id, COUNT(*) THING_CNT "
-				+ "from thingrank "
-				+ "group by thing_id) using(thing_id) "
-				+ "where categories like '" + cate_str + "%'";
+				+ "from thingrank natural join thing "
+				+ "where categories like '"+cate_str+"%' "
+				+ "group by thing_id) using(thing_id)";
 		
 		// query count for array
 		String sql_cnt = "select count(*) "
 				+ "from (select user_id, ranks, thing_id, categories, thing_name "
 				+ "from thingrank natural join thing "
+				+ "where categories like '"+cate_str+"%' "
 				+ "order by user_id, ranks) join "
 				+ "(select thing_id, COUNT(*) THING_CNT "
-				+ "from thingrank "
-				+ "group by thing_id) using(thing_id) "
-				+ "where categories like '" + cate_str + "%'";
+				+ "from thingrank natural join thing "
+				+ "where categories like '"+cate_str+"%' "
+				+ "group by thing_id) using(thing_id)";
 		
 		try {
 			rs_cnt = stmt.executeQuery(sql_cnt);
@@ -207,45 +209,70 @@ public class phase3_jdbc {
 			while (rs_cnt.next()) {
 				cnt = Integer.valueOf(rs_cnt.getString(1));
 			}
+			
 			rs = stmt.executeQuery(sql);
 			
-			String[][] thingrank = new String[cnt][6]; //6번째 인덱스에 score 
+			String[][] thingrank = new String[cnt][7]; //6번째 인덱스에 score
 			int ind = 0;
+			int start = 0;
+			int end = 0;
+			int temp_ind = 0;
+			float cnt_user = 0;
+			
+			System.out.println("count of ranks: " + String.valueOf(cnt));
 			// put thingrank into array for calculating score
 			while(rs.next()) {
+				
 				String usr_id = rs.getString(1);
 				String ranks = rs.getString(2);
 				String t_name = rs.getString(3);
 				String cate = rs.getString(4);
-				String cnt_rank = rs.getString(5);
-
-				thingrank[ind][0] = usr_id;
-				thingrank[ind][1] = ranks;
-				thingrank[ind][2] = t_name;
-				thingrank[ind][3] = cate;
-				thingrank[ind][4] = cnt_rank;
-				thingrank[ind][5] = "0";
+				String thing_id = rs.getString(5);
+				String cnt_rank = rs.getString(6);
 				
-				// calculating score
-				if (ind == cnt-1 || (ind > 1 && !thingrank[ind][0].equals(thingrank[ind-1][0]))) {
-					float cnt_user = 0;
-					if (ind == cnt-1) {
-						cnt_user = Integer.valueOf(thingrank[ind-1][1]);
-						ind += 1;
-					} else {
-						cnt_user = Integer.valueOf(thingrank[ind-1][1])-1;
+				thingrank[end][0] = usr_id;
+				thingrank[end][1] = ranks;
+				thingrank[end][2] = t_name;
+				thingrank[end][3] = cate;
+				thingrank[end][4] = cnt_rank;
+				thingrank[end][5] = thing_id; 
+				thingrank[end][6] = "0";
+
+				//calculating score (two pointer algorithm)
+				if (end + 1 == cnt || (end > 0 && !thingrank[end][0].equals(thingrank[end-1][0]))) { // user_id가 바뀔때
+					float dif = 0;
+					if (end + 1 == cnt) { //마지막 인덱스 처리
+						if (cnt_user == 1.0) {
+							thingrank[end][6] = String.valueOf(5.0);
+						} else {
+							float end_f = (float)end; 
+							float start_f = (float)start; 
+							dif = 4/(end_f - start_f);
+							for (int i = start; i < end + 1; i++) {
+								thingrank[i][6] = String.valueOf(5 - dif * (i - start));
+							}
+						}
+					}else {
+						if (cnt_user == 1.0) {
+							thingrank[end-1][6] = String.valueOf(5.0);
+						} else {
+							dif = 4/(cnt_user-1);
+							for (int i = start; i < end; i++) {
+								thingrank[i][6] = String.valueOf(5 - dif * (i - start));
+							}
+						}
 					}
-					float dif = 4/cnt_user;
-					for (int i=0; i < cnt_user+1; i++) {
-						thingrank[(ind-1)-i][5] = String.valueOf(1 + dif * i);
-					}
+					cnt_user = 0;
+					start = end;
+					end = start;
 				}
-				ind += 1;
+				
+				cnt_user += 1;
+				end += 1;
+				
 			}
-//			System.out.println("check1");
 			for (int i = 0; i < cnt; i++) {
-//				System.out.println("check2");
-				System.out.println(thingrank[i][0] + " " + thingrank[i][1] + " " + thingrank[i][2] + " " + thingrank[i][3] + " " + thingrank[i][5]);
+				System.out.println(thingrank[i][0] + "\t" + thingrank[i][1] + "\t" + thingrank[i][2] + "\t" + thingrank[i][5] + "\t" + thingrank[i][6]);
 			}
 			rs.close();
 		} catch (Exception e) {
