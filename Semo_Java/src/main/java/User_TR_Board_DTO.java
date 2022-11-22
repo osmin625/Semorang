@@ -1,5 +1,7 @@
-
-public class MyPageDTO {
+/**
+ * User 1명의 ThingRank Board에 들어가는 정보를 담은 클래스  
+ */
+public class User_TR_Board_DTO {
 	private String u_user_id;
 	private String u_name;
 	private int tr_ranks;
@@ -7,7 +9,7 @@ public class MyPageDTO {
 	private String t_thing_name;
 	private String t_categories;
 	
-	MyPageDTO(){
+	User_TR_Board_DTO(){
 		super();
 		u_user_id = "";
 		u_name = "";
@@ -23,7 +25,7 @@ public class MyPageDTO {
 				u_user_id,u_name,tr_ranks,t_thing_id,t_thing_name,t_categories);
 		return result;
 	}
-	
+
 	/**
 	 * ranks랑 thing_name만 출력
 	 */

@@ -15,10 +15,15 @@ public class MainPage {
 			System.exit(1);
 		}
 		
-		MyPageDAO mpDAO = new MyPageDAO();
-		mpDAO.print_total_trBoard("user_1");
+//		UserPage userpage = new UserPage();
+//		userpage.print_total_trBoard("user_1");
+//		System.out.println("-------------------------");
+//		userpage.print_category_trBoard("user_1", "한식");
+		
+		Mypage mypage = new Mypage();
+		mypage.print_total_trBoard("user_1");
 		System.out.println("-------------------------");
-		mpDAO.print_category_trBoard("user_1", "한식");
+		mypage.print_category_trBoard("user_1", "한식");
 		
 //		try {
 //			List<MyPageBoardDTO> mybDTO_list = mpbDAO.getList_by_userId("user_1");
