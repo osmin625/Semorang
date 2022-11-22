@@ -150,6 +150,8 @@ public class phase3_jdbc {
 			e.printStackTrace();
 		}
 	}
+	
+	
 	// 장르별 평점내려면 장르에 해당되는 
 	public static void ranking_board(Connection conn, Statement stmt) {
 		Scanner sc = new Scanner(System.in);
@@ -179,7 +181,6 @@ public class phase3_jdbc {
 		}
 		//여기까지
 		
-		//계산 알고리즘 필요
 		ResultSet rs = null;
 		ResultSet rs_cnt = null;
 		String sql = "select user_id, ranks, thing_name, categories, thing_id, THING_CNT "
@@ -219,8 +220,6 @@ public class phase3_jdbc {
 			int temp_ind = 0;
 			float cnt_user = 0;
 			
-//			System.out.println("count of ranks: " + String.valueOf(cnt));
-			
 			// put thingrank into array for calculating score
 			while(rs.next()) {
 				
@@ -232,7 +231,7 @@ public class phase3_jdbc {
 				String cnt_rank = rs.getString(6);
 				
 				thingrank[end][0] = usr_id; //userid
-				thingrank[end][1] = ranks; //ranks that user chosed
+				thingrank[end][1] = ranks; //ranks that user choosed
 				thingrank[end][2] = t_name; //thing name
 				thingrank[end][3] = cate; //thing category
 				thingrank[end][4] = cnt_rank; //number of things in certain category
@@ -251,7 +250,7 @@ public class phase3_jdbc {
 							thingrank[i][6] = String.valueOf(5 - dif * (i - start));
 						}
 					}
-					if (end + 1 == cnt) { //마지막 인덱스 처리
+					if (end + 1 == cnt) { // 마지막 인덱스 처리
 						if (cnt_user == 1.0) {
 							thingrank[end][6] = String.valueOf(5.0);
 						} else {
@@ -274,10 +273,10 @@ public class phase3_jdbc {
 			}
 			// 점수 여기까지 계산
 			
+			
+			//여기부터 통합랭킹 산출
 			ResultSet t_rs = null;
 			ResultSet rs_ttl_cnt = null;
-			
-			
 			
 			String sql_eval_count = "select count(*) "
 					+ "from thing "
@@ -294,7 +293,8 @@ public class phase3_jdbc {
 					+ "where categories like '"+ cate_str +"%'";
 			t_rs = stmt.executeQuery(sql_eval_score);
 			
-			String[][] total_rank = new String[ttl_cnt][2];
+			String[][] total_rank = new String[ttl_cnt][2]; //[name, score]
+			float[][] sort_ind = new float[ttl_cnt][2]; // [score, index] 
 			int t_ind = 0;
 			
 			while (t_rs.next()) {
@@ -312,14 +312,21 @@ public class phase3_jdbc {
 				float res_RB_score = sum/eval_cnt; 
 				total_rank[t_ind][0] = th_name;
 				total_rank[t_ind][1] = String.valueOf(res_RB_score);
+				sort_ind[t_ind][0] = res_RB_score;
+				sort_ind[t_ind][1] = t_ind;
 				t_ind += 1;
 			}
+			// 카테고리 평균 점수에 따라 정렬
+//			Arrays.sort(sort_ind, Comparator.comparingDouble(o1 -> o1[0]));
+			Arrays.sort(sort_ind, (o1, o2) -> Double.compare(o2[0], o1[0]));
+			
 			//랭크 출력
 			if (ttl_cnt == 0) {
 				System.out.println("No things are on Rank!");
 			}
 			for (int i = 0; i < ttl_cnt; i++) {
-				System.out.println("Rank #"+String.valueOf(i+1) + ".\t| " + total_rank[i][0] + total_rank[i][1]);
+//				System.out.println(String.valueOf(sort_ind[i][0]) + ", " +String.valueOf(sort_ind[i][1]));
+				System.out.println("Rank #"+String.valueOf(i+1) + ".\t| " + total_rank[(int)sort_ind[i][1]][0]); // mean score 비교/확인 + " " + total_rank[(int)sort_ind[i][1]][1] + " " + sort_ind[i][0]);
 			}
 			rs.close();
 		} catch (Exception e) {
@@ -390,6 +397,7 @@ public class phase3_jdbc {
 		String name;
 		String region;
 		String phone_num;
+		
 		System.out.println("new user id : ");
 		new_id = sc.next();
 		System.out.println("new password id : ");
