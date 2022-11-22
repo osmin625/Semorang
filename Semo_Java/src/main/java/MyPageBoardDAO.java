@@ -15,16 +15,17 @@ public class MyPageBoardDAO {
 		List<MyPageBoardDTO> list = new ArrayList<>();
 		try {
 			conn = dbUtil.getConnection();
-			String user_total_thingrank_sql = "SELECT U.USER_ID , U.NAME, TR.RANKS,T.THING_ID,T.THING_NAME, T.CATEGORIES\r\n"
-					+ "FROM USERS U,THINGRANK TR,THING T\r\n"
-					+ "WHERE 1=1\r\n"
-					+ "	AND U.USER_ID =TR.USER_ID\r\n"
-					+ "	AND TR.THING_ID = T.THING_ID \r\n"
-					+ "	AND U.USER_ID = '?'"
-					+ "ORDER BY TR.RANKS ASC\r\n";
+			String user_total_thingrank_sql = "SELECT U.USER_ID , U.NAME, TR.RANKS,T.THING_ID,T.THING_NAME, T.CATEGORIES"
+					+ " FROM USERS U,THINGRANK TR,THING T "
+					+ "WHERE 1=1"
+					+ "	AND U.USER_ID =TR.USER_ID"
+					+ "	AND TR.THING_ID = T.THING_ID"
+					+ "	AND U.USER_ID = ?"
+					+ "ORDER BY TR.RANKS ASC";
 			pstmt = conn.prepareStatement(user_total_thingrank_sql);
 			pstmt.setString(1, user_id);
 			rs = pstmt.executeQuery();
+			
 			while(rs.next()) {
 				MyPageBoardDTO mpb = new MyPageBoardDTO();
 				mpb.setU_user_id(rs.getString("user_id"));
