@@ -1,0 +1,32 @@
+package DAO;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import DTO.SnapshotDTO;
+public class SnapshotBoardDAO {
+	private DBUtil dbUtil = DBUtil.getInstance();
+	public List<SnapshotDTO> getList() throws SQLException{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<SnapshotDTO> list = new ArrayList<>();
+		
+		try {
+			conn = dbUtil.getConnection();
+			String sql = "SELECT * FROM SNAPSHOT";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				SnapshotDTO t = new SnapshotDTO();
+				
+				list.add(t);
+			}
+		} finally {
+			dbUtil.close(rs,pstmt,conn);
+		}
+		return list;
+	}
+}
