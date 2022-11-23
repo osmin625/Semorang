@@ -39,4 +39,27 @@ public class ThingDAO {
 		}
 		return list;
 	}
+	/**
+	 * 이름으로 thing_id 찾기
+	 */
+	public int search_id_by_name(String name) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int thing_id = 0;
+		try {
+			conn = dbUtil.getConnection();
+			String sql = "SELECT Thing_id FROM THING WHERE THING_NAME =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				thing_id = rs.getInt(1);
+			}
+		} finally {
+			dbUtil.close(rs,pstmt,conn);
+		}
+		
+		return thing_id;
+	}
 }

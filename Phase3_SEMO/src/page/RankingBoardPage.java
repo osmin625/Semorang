@@ -58,10 +58,8 @@ public class RankingBoardPage {
 			rs = stmt.executeQuery(sql);
 			
 			String[][] thingrank = new String[cnt][7]; //6번째 인덱스에 score
-			int ind = 0;
 			int start = 0;
 			int end = 0;
-			int temp_ind = 0;
 			float cnt_user = 0;
 			
 			// put thingrank into array for calculating score

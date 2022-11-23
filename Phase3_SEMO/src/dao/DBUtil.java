@@ -2,14 +2,16 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBUtil {
-	private final String URL = "jdbc:oracle:thin:@SEMODB_high?TNS_ADMIN=C:\\\\OracleDBproject\\\\Wallet_SEMODB";
-	private final String USER_ID = "ADMIN";
-	private final String USER_PWD = "Semorang1234";
+//	private final String URL = "jdbc:oracle:thin:@SEMODB_high?TNS_ADMIN=C:\\\\OracleDBproject\\\\Wallet_SEMODB";
+//	private final String USER_ID = "ADMIN";
+//	private final String USER_PWD = "Semorang1234";
+	
+	private final String URL = "jdbc:oracle:thin:@localhost:1521:orcl";
+	private final String USER_ID = "SEMOTEST";
+	private final String USER_PWD = "1234";
 
 	private static DBUtil instance;
 

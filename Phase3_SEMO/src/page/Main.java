@@ -16,12 +16,18 @@ public class Main {
 		Scanner keyboard = new Scanner(System.in);
 		
 		LoginPage loginpage = new LoginPage(keyboard);
-		if(loginpage.isLogin_success()) { // 로그인 성공했을 경우
+		if(loginpage.isLogin_success()) { 											// 로그인 성공했을 경우
+			if(loginpage.getUser_type() == 0) {										// Admin으로 로그인 했을 경우
+				System.out.println("Admin 페이지는 제작중입니다");
+				System.exit(1);
+			}
 			System.out.println(loginpage.toString());
 			
-			int menu = 0;
-			RankingBoardPage rbp = new RankingBoardPage();
-			Mypage mp = new Mypage(loginpage.getUser_id());
+			int menu = 0;												
+			RankingBoardPage rbp = new RankingBoardPage();							// 각 페이지로 이동하기 위해 페이지 클래스별 객체 생성			
+			Mypage mp = new Mypage(LoginPage.user_id);
+			UserRankingPage urp = new UserRankingPage();
+			SnapshotBoardPage sbp = new SnapshotBoardPage();
 			
 			while(true) {
 				System.out.println("==============================");
@@ -41,9 +47,9 @@ public class Main {
 				if (menu == 1) {
 					rbp.display(keyboard);
 				} else if (menu == 2) {
-					
+					urp.display();
 				} else if (menu == 3) {
-					
+					sbp.display(keyboard, LoginPage.user_id);
 				} else if (menu == 4) {
 					mp.display(keyboard);
 					
@@ -52,56 +58,13 @@ public class Main {
 				}
 			}
 			
+			// 사용한 페이지 객체들 메모리 반환
+			rbp = null;
+			urp = null;
+			sbp = null;
+			mp = null;
+			
 		}
 
 	}
-	
-	
-	
-	
 }
-
-//UserDAO ud = new UserDAO();
-//ud.delete("user_51");
-//ud.delete("user_52");
-//ud.delete("user_53");
-
-//UserPage userpage = new UserPage();
-//userpage.print_total_trBoard("user_1");
-//System.out.println("-------------------------");
-//userpage.print_category_trBoard("user_1", "한식");
-
-//Mypage mypage = new Mypage();
-//mypage.print_total_trBoard("user_1");
-//System.out.println("-------------------------");
-//mypage.print_category_trBoard("user_1", "한식");
-
-//try {
-//	List<MyPageBoardDTO> mybDTO_list = mpbDAO.getList_by_userId("user_1");
-////	System.out.printf(" %-10s | %-8s | %-10s | %-10s | %-10s | %-10s\n"
-////			,"user_id","user_name","ranks","thing_id","thing_name","categories");
-//	System.out.printf(" %-9s | %-10s \n","나의 순위","상호명");
-//	for (MyPageBoardDTO myPageBoardDTO : mybDTO_list) {
-//		System.out.println(myPageBoardDTO.toString_short());
-//	}
-//} catch (SQLException e) {
-//	e.printStackTrace();
-//}
-
-//ThingDAO thingDAO = new ThingDAO();
-//try {
-//	List<ThingDTO> thingDTO_list= thingDAO.getList();
-//	for (ThingDTO thingDTO : thingDTO_list) {
-//		System.out.println(thingDTO.toString());
-//	}
-//} catch (SQLException e) {
-//	// TODO Auto-generated catch block
-//	e.printStackTrace();
-//}
-//
-
-//ThingRankDAO thingRankDAO = new ThingRankDAO();
-//thingRankDAO.insert(17720028, "user_1", 3);
-//thingRankDAO.update(17720028, "user_1", 1);
-//thingRankDAO.delete(17720028,"user_1");
-//thingRankDAO.printTotalList();

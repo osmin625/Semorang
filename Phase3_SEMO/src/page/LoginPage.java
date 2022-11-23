@@ -8,7 +8,7 @@ import dao.UserDAO;
 
 public class LoginPage {
 	private boolean login_success;
-	private String user_id;
+	public static String user_id;
 	private int user_type;
 	
 	public LoginPage(Scanner keyboard){
@@ -114,7 +114,7 @@ public class LoginPage {
 		return "login_success!! user_id : "+ user_id + " user_type: " + user_type;
 	}
 	
-	public String getUser_id() {
+	public static String getUser_id() {
 		return user_id;
 	}
 	public void setUser_id(String user_id) {

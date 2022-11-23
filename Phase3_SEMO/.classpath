@@ -7,5 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/OracleDBproject/ojdbc8-full/orai18n.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

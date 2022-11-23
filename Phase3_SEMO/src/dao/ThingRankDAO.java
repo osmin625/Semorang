@@ -3,8 +3,8 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import dto.ThingRankDTO;
@@ -65,20 +65,23 @@ public class ThingRankDAO {
 		}
 	}
 	
+	// ThingRank 수정하기 - update_date에 자동으로 현재시각 기록됨
 	public void update(int thing_id, String user_id,int new_ranks) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		try {
 			conn = dbUtil.getConnection();
 			String sql = "UPDATE THINGRANK "
-					+ "SET RANKS = ? "
+					+ "SET RANKS = ? , UPDATE_DATE = ?"
 					+ "WHERE THING_ID = ? "
 					+ " AND USER_ID = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,new_ranks);
-			pstmt.setInt(2,thing_id);
-			pstmt.setString(3, user_id);
+			pstmt.setTimestamp(2,timestamp);
+			pstmt.setInt(3,thing_id);
+			pstmt.setString(4, user_id);
 			rs = pstmt.executeQuery();
 			System.out.println("ThingRank UPDATE 완료\n"+ "thing_id: " + thing_id + " user_id: "+user_id + " 변경한 ranks: " + new_ranks);
 			conn.commit();
