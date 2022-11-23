@@ -1,3 +1,4 @@
+package dto;
 
 public class AdminDTO {
 	private String admin_id;

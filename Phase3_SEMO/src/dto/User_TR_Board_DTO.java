@@ -1,3 +1,4 @@
+package dto;
 /**
  * User 1명의 ThingRank Board에 들어가는 정보를 담은 클래스  
  */
@@ -9,7 +10,7 @@ public class User_TR_Board_DTO {
 	private String t_thing_name;
 	private String t_categories;
 	
-	User_TR_Board_DTO(){
+	public User_TR_Board_DTO(){
 		super();
 		u_user_id = "";
 		u_name = "";

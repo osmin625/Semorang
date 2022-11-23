@@ -1,10 +1,39 @@
+package dao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import dto.AdminDTO;
 public class AdminDAO {
 	private DBUtil dbUtil = DBUtil.getInstance();
+	
+	public int valid_login(String id, String pw) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;																		
+		String sql="";
+		try {
+			conn = dbUtil.getConnection();
+			sql = "SELECT ADMIN_ID FROM ADMIN WHERE ADMIN_ID = ? AND PASSWORD = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,id);
+			pstmt.setString(2,pw);
+			rs = pstmt.executeQuery();
+			if(rs!=null && rs.isBeforeFirst()) { // rs에 값이 하나라도 있을 경우
+					result = 1;
+			}
+		}
+		catch (SQLException e) {
+			System.err.println("AdminDAO : valid_login 오류");
+			e.printStackTrace();
+		}
+		finally {
+			dbUtil.close(rs,pstmt,conn);
+		}	
+		return result;
+	}
 	
 	public void insert(String admin_id, String password) {
 		AdminDTO adminDTO = new AdminDTO(admin_id,password);

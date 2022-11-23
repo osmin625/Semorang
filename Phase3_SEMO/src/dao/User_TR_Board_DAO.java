@@ -1,14 +1,17 @@
+package dao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import dto.User_TR_Board_DTO;
 
 public class User_TR_Board_DAO {
 	private DBUtil dbUtil = DBUtil.getInstance();
 	
-	User_TR_Board_DAO(){
+	public User_TR_Board_DAO(){
 		super();
 	}
 	

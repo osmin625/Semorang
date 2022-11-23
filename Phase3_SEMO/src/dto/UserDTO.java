@@ -1,3 +1,4 @@
+package dto;
 
 public class UserDTO {
 	private String user_id;
@@ -6,7 +7,7 @@ public class UserDTO {
 	private String region;
 	private String phone_number;
 	
-	UserDTO(){
+	public UserDTO(){
 		super();
 		user_id = "";
 		password = "";

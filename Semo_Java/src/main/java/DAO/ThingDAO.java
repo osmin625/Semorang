@@ -38,4 +38,12 @@ public class ThingDAO {
 		}
 		return list;
 	}
+	
+	
+	/**
+	 * 이름으로 thing_id 찾기
+	 */
+//	public String search_id_by_name(String name) {
+		
+//	}
 }

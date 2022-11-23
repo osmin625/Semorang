@@ -1,9 +1,8 @@
 package DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class DBUtil {
 	private final String URL = "jdbc:oracle:thin:@SEMODB_high?TNS_ADMIN=C:\\\\OracleDBproject\\\\Wallet_SEMODB";
@@ -20,7 +19,23 @@ public class DBUtil {
 			instance = new DBUtil();
 		return instance;
 	}
-	
+	public Connection getConnection() throws SQLException {
+		Connection conn = DriverManager.getConnection(URL, USER_ID, USER_PWD);
+		conn.setAutoCommit(false);
+		return conn;
+	}
+
+	public void close(AutoCloseable... autoCloseables) {
+		try {
+			for(AutoCloseable ac : autoCloseables) {
+				if(ac != null)
+					ac.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static String cate_id_to_name(String cate_id){
 		String cate_name;
 		String c =cate_id.substring(0,3);
@@ -66,23 +81,6 @@ public class DBUtil {
 		default : 
 			System.err.println("category name-> id 변환 오류 ");
 			return "";
-		}
-	}
-
-	public Connection getConnection() throws SQLException {
-		Connection conn = DriverManager.getConnection(URL, USER_ID, USER_PWD);
-		conn.setAutoCommit(false);
-		return conn;
-	}
-
-	public void close(AutoCloseable... autoCloseables) {
-		try {
-			for(AutoCloseable ac : autoCloseables) {
-				if(ac != null)
-					ac.close();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 

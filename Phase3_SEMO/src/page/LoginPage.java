@@ -1,18 +1,17 @@
-package Pages;
+package page;
 
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import DAO.AdminDAO;
-import DAO.UserDAO;
+import dao.AdminDAO;
+import dao.UserDAO;
 
 public class LoginPage {
 	private boolean login_success;
 	private String user_id;
 	private int user_type;
 	
-	public LoginPage(){
-		Scanner keyboard = new Scanner(System.in);
+	public LoginPage(Scanner keyboard){
 		int menu = 0;
 		user_type = -1;
 		while(true) {
@@ -38,7 +37,7 @@ public class LoginPage {
 				}else {
 					user_id = login(keyboard);
 					if (!user_id.equals("")) {
-						System.out.println("login success!");
+//						System.out.println("login success!");
 						break;
 					}
 				}
@@ -55,7 +54,6 @@ public class LoginPage {
 				System.out.println("잘못된 입력입니다");
 			}
 		}
-		keyboard.close();
 	}
 	private String login(Scanner keyboard) {
 		int login_check = 0;
