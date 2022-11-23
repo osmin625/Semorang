@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import DTO.SnapshotDTO;
-public class SnapshotBoardDAO {
+public class SnapshotDAO {
 	private DBUtil dbUtil = DBUtil.getInstance();
 	public List<SnapshotDTO> getList() throws SQLException{
 		Connection conn = null;
@@ -30,5 +30,16 @@ public class SnapshotBoardDAO {
 		}
 		return list;
 	}
+	public void printList() {
+		try {
+			List<SnapshotDTO> snapshotDTO_list = getList();
+			for (SnapshotDTO snapshotDTO : snapshotDTO_list) {
+				System.out.println(snapshotDTO.toString());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
 
