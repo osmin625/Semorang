@@ -14,7 +14,7 @@ public class CommentDTO {
 	private LocalDateTime write_date;
 	private LocalDateTime update_date;
 	
-	CommentDTO(){
+	public CommentDTO(){
 		super();
 		this.comment_id = "";
 		this.snapshot_id = "";  

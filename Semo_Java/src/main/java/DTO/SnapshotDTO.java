@@ -15,7 +15,7 @@ public class SnapshotDTO {
 	private int like_count;
 	private int dislike_count;
 	
-	SnapshotDTO(){
+	public SnapshotDTO(){
 		super();
 		this.snapshot_id = "";
 		this.thing_rank_id = "";
