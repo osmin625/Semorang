@@ -25,6 +25,7 @@ public class RankingBoardPage {
 		
 		category = selectCategory(keyboard);
 		
+		// 각 유저가 선택한 thing의 점수를 카테고리별로 계산하기 위해 쿼리를 구현한다
 		String sql = "select user_id, ranks, thing_name, categories, thing_id, THING_CNT "
 				+ "from (select user_id, ranks, thing_id, categories, thing_name "
 				+ "from thingrank natural join thing "

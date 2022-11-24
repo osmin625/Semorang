@@ -33,6 +33,7 @@ public class Mypage extends UserPage {
 			System.out.println("	5. Update Ranking 	  ");
 			System.out.println("	6. Delete Ranking 	  ");
 			System.out.println("	7. My Snapshot like count  ");
+			System.out.println("	8. My following (내가 팔로우하는 사람들)  ");
 			System.out.println("-----------------------------");
 			System.out.println("	exit(-1) 		  ");
 			System.out.println("==============================");
@@ -60,6 +61,9 @@ public class Mypage extends UserPage {
 			}
 			else if (menu == 7) {
 				print_snapshot_like_count();
+			}
+			else if (menu == 8) {
+				print_my_following();
 			}
 			else if(menu == -1) {
 				return ;
@@ -89,11 +93,15 @@ public class Mypage extends UserPage {
 			thingDAO.printTotalList();
 			System.out.println("랭크를 추가할 음식점(thing)의 이름을 입력하세요");
 			String thing_name = keyboard.nextLine();
-			System.out.println("Rank를 입력하세요");
-			int rank  = keyboard.nextInt();
-			keyboard.nextLine();
 			thing_id = thingDAO.search_id_by_name(thing_name);
-			trDAO.insert(thing_id, this.getUser_id(), rank);
+			if(trDAO.valid_thing(thing_id)==0) {  //중복 -> 무결성  위반
+				System.out.println("이미 랭크를 등록한 Thing입니다");
+			}else {		
+				System.out.println("Rank를 입력하세요");
+				int rank  = keyboard.nextInt();
+				keyboard.nextLine();
+				trDAO.insert(thing_id, this.getUser_id(), rank);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -165,5 +173,33 @@ public class Mypage extends UserPage {
 			dbUtil.close(rs,pstmt,conn);
 		}
 	
+	}
+	// 내가 팔로우하는 사람 확인
+	public void print_my_following() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			String sql = "SELECT fu.user_id, fu.name "
+					+ "FROM"
+					+ "    follow f,"
+					+ "    users  u,"
+					+ "    users  fu "
+					+ "WHERE"
+					+ "        fu.user_id = f.follower_uid"
+					+ "    AND f.following_uid = u.user_id"
+					+ "    AND  u.user_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, LoginPage.user_id);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				System.out.printf("%-10s %-10s\n",rs.getString(1),rs.getString(2));
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			dbUtil.close(rs,pstmt,conn);
+		}
 	}
 }
