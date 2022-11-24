@@ -1,6 +1,10 @@
 package dto;
+
+import main.DBUtil;
+
 /**
  * User 1명의 ThingRank Board에 들어가는 정보를 담은 클래스  
+ * User_TR_Board_DAO에서 사용된 SELECT문 참고
  */
 public class User_TR_Board_DTO {
 	private String u_user_id;
@@ -36,26 +40,7 @@ public class User_TR_Board_DTO {
 	}
 	
 	public void setT_categories(String t_categories) {
-		String temp;
-		String c =t_categories.substring(0,3);
-		switch(c) {
-		case"Q01" : temp ="한식";break;
-		case"Q02" : temp ="중식";break;
-		case"Q03" : temp ="일식/수산물";break;
-		case"Q04" : temp ="분식";break;
-		case"Q05" : temp ="닭/오리요리";break;
-		case"Q06" : temp ="양식";break;
-		case"Q07" : temp ="패스트푸드";break;
-		case"Q08" : temp ="제과제빵떡케익";break;
-		case"Q09" : temp ="유흥주점";break;
-		case"Q10" : temp ="별식/퓨전요리";break;
-		case"Q12" : temp ="커피점/카페";break;
-		case"Q13" : temp ="음식배달서비스";break;
-		case"Q14" : temp ="기타음식업";break;
-		case"Q15" : temp ="부페";break;
-		default : temp = ""; break;
-		}
-		this.t_categories = temp;
+		this.t_categories = DBUtil.cate_id_to_name(t_categories);
 	}
 	
 	public String getU_user_id() {

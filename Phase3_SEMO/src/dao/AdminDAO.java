@@ -1,13 +1,16 @@
 package dao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import dto.AdminDTO;
+import main.DBUtil;
 public class AdminDAO {
 	private DBUtil dbUtil = DBUtil.getInstance();
 	
+	// id와 pw로 ADMIN 테이블에 있는 관리자정보를 확인
 	public int valid_login(String id, String pw) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

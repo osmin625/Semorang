@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import dto.ThingDTO;
+import main.DBUtil;
 public class ThingDAO {
 	private DBUtil dbUtil = DBUtil.getInstance();
 	
-	public List<ThingDTO> getList() throws SQLException{
+	public List<ThingDTO> getTotalList() throws SQLException{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -39,8 +40,20 @@ public class ThingDAO {
 		}
 		return list;
 	}
+	
+	public void printTotalList() {
+		try {
+			List<ThingDTO> thingDTO_list= getTotalList();
+			for (ThingDTO thingDTO : thingDTO_list) {
+				System.out.println(thingDTO.toString());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
-	 * 이름으로 thing_id 찾기
+	 * thing_name으로 thing_id를 찾아서 반환
 	 */
 	public int search_id_by_name(String name) throws SQLException {
 		Connection conn = null;

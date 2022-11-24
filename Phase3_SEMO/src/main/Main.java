@@ -1,6 +1,12 @@
-package page;
+package main;
 
 import java.util.Scanner;
+
+import page.LoginPage;
+import page.Mypage;
+import page.RankingBoardPage;
+import page.SnapshotBoardPage;
+import page.UserRankingPage;
 
 public class Main {
 	

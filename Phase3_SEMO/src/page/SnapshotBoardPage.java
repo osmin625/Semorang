@@ -6,16 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
-
-import dao.DBUtil;
+import main.DBUtil;
 
 public class SnapshotBoardPage {
 	private DBUtil dbUtil = DBUtil.getInstance();
 	
-	SnapshotBoardPage(){
+	public SnapshotBoardPage(){
 		super();
 	}
 	
+	// SnapshotBoard 메뉴 출력
 	public void display(Scanner keyboard, String user_id) {
 		int menu = 0;
 		while(true) {
@@ -42,7 +42,7 @@ public class SnapshotBoardPage {
 		}
 		
 	}
-	
+	//전체 snapshot 목록을 최신순으로 출력 
 	public void total_snapshot() {
 		Connection conn = null;
 		Statement stmt = null;
@@ -66,6 +66,7 @@ public class SnapshotBoardPage {
 		}
 	}
 	
+	// 나(로그인한 유저) 의 snapshot 전부 보여줌 
 	public void user_snapshot(String user_id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

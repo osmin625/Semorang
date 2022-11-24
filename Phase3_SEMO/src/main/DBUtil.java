@@ -1,10 +1,12 @@
-package dao;
+package main;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBUtil {
+//  팀 클라우드 접속 코드 -> 과제는 local에서 phase2 ddl, insert 스크립트 활용하여 테스트 
 //	private final String URL = "jdbc:oracle:thin:@SEMODB_high?TNS_ADMIN=C:\\\\OracleDBproject\\\\Wallet_SEMODB";
 //	private final String USER_ID = "ADMIN";
 //	private final String USER_PWD = "Semorang1234";
@@ -24,6 +26,24 @@ public class DBUtil {
 		return instance;
 	}
 	
+	public Connection getConnection() throws SQLException {
+		Connection conn = DriverManager.getConnection(URL, USER_ID, USER_PWD);
+		conn.setAutoCommit(false);
+		return conn;
+	}
+
+	public void close(AutoCloseable... autoCloseables) {
+		try {
+			for(AutoCloseable ac : autoCloseables) {
+				if(ac != null)
+					ac.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 카테고리 id (중분류) -> 카테고리 이름 변환
 	public static String cate_id_to_name(String cate_id){
 		String cate_name;
 		String c =cate_id.substring(0,3);
@@ -50,6 +70,7 @@ public class DBUtil {
 		return cate_name;
 	}
 	
+	// 카테고리 이름 ->  카테고리 id로 변환
 	public static String cate_name_to_id(String cate_name){
 		switch(cate_name) {
 		case"한식" : 			return "Q01";
@@ -72,21 +93,6 @@ public class DBUtil {
 		}
 	}
 
-	public Connection getConnection() throws SQLException {
-		Connection conn = DriverManager.getConnection(URL, USER_ID, USER_PWD);
-		conn.setAutoCommit(false);
-		return conn;
-	}
-
-	public void close(AutoCloseable... autoCloseables) {
-		try {
-			for(AutoCloseable ac : autoCloseables) {
-				if(ac != null)
-					ac.close();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 }

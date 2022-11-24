@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import dto.ThingRankDTO;
+import main.DBUtil;
 public class ThingRankDAO {
 	private DBUtil dbUtil = DBUtil.getInstance();
 	
@@ -36,7 +37,6 @@ public class ThingRankDAO {
 	}
 	
 	// 새로운 튜플 insert하기
-
 	public void insert(int thing_id, String user_id, int ranks) {
 		ThingRankDTO trDTO = new ThingRankDTO(get_next_id(), thing_id, user_id, ranks);
 		Connection conn = null;

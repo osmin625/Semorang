@@ -7,9 +7,9 @@ import dao.AdminDAO;
 import dao.UserDAO;
 
 public class LoginPage {
-	private boolean login_success;
-	public static String user_id;
-	private int user_type;
+	private boolean login_success;												// 로그인 성공 여부
+	public static String user_id;												// 로그인한 user_id를 프로그램 내부에서 사용하기 위함
+	private int user_type;														// 1일 경우 일반 유저(USERS), 0일 경우 관리자 (ADMIN)
 	
 	public LoginPage(Scanner keyboard){
 		int menu = 0;
@@ -55,6 +55,7 @@ public class LoginPage {
 			}
 		}
 	}
+	// id와 pw를 입력받아 로그인 수행
 	private String login(Scanner keyboard) {
 		int login_check = 0;
 		String id;
@@ -82,6 +83,8 @@ public class LoginPage {
 		}
 		return id;
 	}
+	
+	//새로운 User 추가 (일반 유저일 경우만)
 	private boolean signUp(Scanner keyboard) {
 		String new_id;
 		String new_pwd;
@@ -96,9 +99,9 @@ public class LoginPage {
 		new_pwd = keyboard.nextLine();
 		System.out.println("your name? : ");
 		name = keyboard.nextLine();
-		System.out.println("your region? (si goon) : ");
+		System.out.println("your region? ex. 대구 수성구 (시 군(구)) : ");
 		region = keyboard.nextLine();
-		System.out.println("your phone number? : ");
+		System.out.println("your phone number? ex.01012341234 : ");
 		phone_num = keyboard.nextLine();
 		try {
 			userDAO.insert(new_id, new_pwd, name, region, phone_num);

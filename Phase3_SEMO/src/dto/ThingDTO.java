@@ -1,5 +1,7 @@
 package dto;
 
+import main.DBUtil;
+
 public class ThingDTO {
 	private int thing_id;
 	private String admin_id;
@@ -26,42 +28,14 @@ public class ThingDTO {
 	}
 	
 	// 카테고리 코드로 받아와서 한글로 변환하여 저장
-	public void setCategories(String categories) {
-		String temp;
-		String c =categories.substring(0,3);
-		switch(c) {
-		case"Q01" : temp ="한식";break;
-		case"Q02" : temp ="중식";break;
-		case"Q03" : temp ="일식/수산물";break;
-		case"Q04" : temp ="분식";break;
-		case"Q05" : temp ="닭/오리요리";break;
-		case"Q06" : temp ="양식";break;
-		case"Q07" : temp ="패스트푸드";break;
-		case"Q08" : temp ="제과제빵떡케익";break;
-		case"Q09" : temp ="유흥주점";break;
-		case"Q10" : temp ="별식/퓨전요리";break;
-		case"Q12" : temp ="커피점/카페";break;
-		case"Q13" : temp ="음식배달서비스";break;
-		case"Q14" : temp ="기타음식업";break;
-		case"Q15" : temp ="부페";break;
-		default : temp = ""; break;
-		}
-		this.categories = temp;
+	public void setCategories(String category_id) {
+		this.categories = DBUtil.cate_id_to_name(category_id);
 	}
 	@Override
 	public String toString() {
 //		String result="";
 		String result= String.format(" %10d | %-8s | %-15s | %-10s | %-20.10f | %-20.10f | %-10s | %-10s| %-10s",
 				thing_id,admin_id,thing_name,categories,latitude,longitude,sido,sigoongoo,bubjungdong);
-//		result += thing_id +" | ";
-//		result += admin_id +" | ";
-//		result += thing_name +" | ";
-//		result += categories +" | ";
-//		result += latitude +" | ";
-//		result += longitude +" | ";
-//		result += sido +" | ";
-//		result += sigoongoo +" | ";
-//		result += bubjungdong;
 		return result;
 	}
 	

@@ -5,8 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.Scanner;
-
-import dao.DBUtil;
+import main.DBUtil;
 
 public class RankingBoardPage {
 	private DBUtil dbUtil = DBUtil.getInstance();
@@ -16,6 +15,7 @@ public class RankingBoardPage {
 		category = "";
 	}
 	
+	// 각 Thing에 대해서 전체 유저들이 매긴 Thingrank 평균을 높은 순으로 출력
 	public void display(Scanner keyboard) {
 		
 		Connection conn = null;
@@ -35,7 +35,7 @@ public class RankingBoardPage {
 				+ "where categories like '"+category+"%' "
 				+ "group by thing_id) using(thing_id)";
 		
-		// query count for array
+		// 1개의 thing에 대해서 매겨진 랭크(thingrank)의 개수 카운트하는 query
 		String sql_cnt = "select count(*) "
 				+ "from (select user_id, ranks, thing_id, categories, thing_name "
 				+ "from thingrank natural join thing "

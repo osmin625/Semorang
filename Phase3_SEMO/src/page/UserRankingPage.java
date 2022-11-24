@@ -4,16 +4,16 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import dao.DBUtil;
+import main.DBUtil;
 
 public class UserRankingPage {
 	private DBUtil dbUtil = DBUtil.getInstance();
 	
-	UserRankingPage(){
+	public UserRankingPage(){
 		super();
 	}
 	
+	//유저 랭킹을 ranking_snapshot의 좋아요 수 합계가 높은 순으로 출력
 	public void display() {
 		Connection conn = null;
 		Statement stmt = null;

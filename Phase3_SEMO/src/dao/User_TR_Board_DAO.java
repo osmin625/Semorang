@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import dto.User_TR_Board_DTO;
+import main.DBUtil;
 
 public class User_TR_Board_DAO {
 	private DBUtil dbUtil = DBUtil.getInstance();
