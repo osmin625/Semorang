@@ -45,7 +45,7 @@
 				<td><input type="reset" value="cancle"></td>
 			</tr>
 			<tr>
-				<td colspan="2">${message }</td>
+				<td colspan="2">${message}</td>
 			</tr>
 		</table>
 	</form>

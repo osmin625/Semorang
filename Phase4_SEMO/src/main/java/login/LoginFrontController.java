@@ -78,6 +78,16 @@ public class LoginFrontController extends HttpServlet implements Servlet{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+		case  "/IdCheck.lo":
+			action = new IdCheckAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
 		default :
 			System.out.println(TAG +"잘못된 접근");
 		}
