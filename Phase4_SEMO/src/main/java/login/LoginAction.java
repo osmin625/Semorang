@@ -33,13 +33,13 @@ public class LoginAction implements Action{
 				System.out.println(TAG + "Login Fail");
 				forward.setIsRedirect(false);
 				forward.setPath("LoginPage2.lo");											// 로그인 실패 했을 때 이동하는 페이지
-				forward.setMessage("로그인 실패");
+				forward.setMessage("로그인에 실패하였습니다.");
 				return forward;
 			}else {
 				System.out.println(TAG + "Login success");
 				session.setAttribute("login_id", userDTO.getUser_id());
 				forward.setIsRedirect(true);
-				forward.setPath("./main.jsp");												// 로그인 성공 했을 때 이동하는 페이지
+				forward.setPath("./Page/RankingBoardPage.jsp");												// 로그인 성공 했을 때 이동하는 페이지
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

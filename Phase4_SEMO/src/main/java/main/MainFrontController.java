@@ -1,7 +1,6 @@
-package login;
+package main;
 
 import java.io.IOException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -9,19 +8,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import util.Action;
 import util.ActionForward;
 
-/**
- * Servlet implementation class LoginFrontController
- */
-@WebServlet("/LoginFrontController")
-public class LoginFrontController extends HttpServlet implements Servlet{
+@WebServlet("/MainFrontController")
+public class MainFrontController extends HttpServlet implements Servlet{
 	private static final long serialVersionUID = 1L;
-	private static String TAG = "LoginFrontController : ";
+	private static String TAG = "MainFrontController : ";
        
-    public LoginFrontController() {
+    public MainFrontController() {
         super();
     }
     
@@ -38,30 +33,15 @@ public class LoginFrontController extends HttpServlet implements Servlet{
 		System.out.println("command: " +command);
 		
 		switch(command) {
-		// 로그인 메인화면
-		case "/LoginPage.lo":								
+		case "/RankingBoardPage.main":								
 			forward = new ActionForward();
 			forward.setIsRedirect(false);
-			forward.setPath("./LoginPage.jsp");
-			break;
-			
-		case "/LoginPage2.lo":
-			forward = new ActionForward();
-			forward.setPath("./LoginPage.jsp");
-			forward.setMessage((String)request.getAttribute("message"));
-			System.out.println("message : " +forward.getMessage());
-			break;
-			
-		// 회원가입 화면
-		case "/SignUpPage.lo":
-			forward = new ActionForward();
-			forward.setIsRedirect(false);
-			forward.setPath("./SignUpPage.jsp");
+			forward.setPath("./Page/RankingBoardPage.jsp");
 			break;
 			
 		// 로그인 버튼 클릭
-		case "/LoginBtnClick.lo":
-			action = new LoginAction();
+		case "/RB_CategoryBtnClick.main":
+			action = new RB_CategoryBtnClickAction();
 //			System.out.println(TAG+"loginBtnClick 들어옴");
 			try {
 				forward = action.execute(request, response);
@@ -69,24 +49,6 @@ public class LoginFrontController extends HttpServlet implements Servlet{
 				e.printStackTrace();
 			}
 			break;
-		
-		// 회원가입 버튼 클릭
-		case "/SignUpBtnClick.lo":
-			action = new SignUpAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-//		case  "/IdCheck.lo":
-//			action = new IdCheckAction();
-//			try {
-//				forward = action.execute(request, response);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-			
 			
 		default :
 			System.out.println(TAG +"잘못된 접근");
@@ -97,7 +59,6 @@ public class LoginFrontController extends HttpServlet implements Servlet{
 		}
 		else {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
-			request.setAttribute("message", forward.getMessage());
 			dispatcher.forward(request, response);
 		}
     }
