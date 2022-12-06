@@ -25,7 +25,8 @@ public class LoginAction implements Action{
 		try {
 			userDTO.setUser_id(request.getParameter("user_id"));
 			userDTO.setPassword(request.getParameter("user_pw"));
-			System.out.println(userDTO.getUser_id() + userDTO.getPassword());
+			
+			System.out.println(TAG +userDTO.getUser_id() + " // "+userDTO.getPassword());
 			valid_check = userDAO.valid_login(userDTO.getUser_id(), userDTO.getPassword());
 			
 			if (valid_check == 0) {

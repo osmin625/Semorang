@@ -24,8 +24,8 @@ public class SignUpAction implements Action{
 			userDTO.setUser_id(request.getParameter("user_id"));
 			userDTO.setPassword(request.getParameter("user_pw"));
 			userDTO.setName(request.getParameter("user_name"));
-			userDTO.setPhone_number(request.getParameter("user_phone_number"));
 			userDTO.setRegion(request.getParameter("user_region"));
+			userDTO.setPhone_number(request.getParameter("user_phone_number"));
 			
 			result = userDAO.insert(userDTO);
 			if(!result) {
@@ -33,8 +33,8 @@ public class SignUpAction implements Action{
 				return null;
 			}
 			System.out.println(TAG + "signUp success");
-			forward.setIsRedirect(true);
-			forward.setPath("./SignUpPage.lo");
+			forward.setIsRedirect(false);
+			forward.setPath("LoginPage.lo");
 					
 		} catch (Exception e) {
 			e.printStackTrace();
