@@ -69,11 +69,12 @@ public class ThingRankDAO {
 	}
 	
 	// ThingRank 수정하기 - update_date에 자동으로 현재시각 기록됨
-	public void update(int thing_id, String user_id,int new_ranks) {
+	public int update(int thing_id, String user_id,int new_ranks) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		int result = 0;
 		try {
 			conn = dbUtil.getConnection();
 			String sql = "UPDATE THINGRANK "
@@ -88,18 +89,21 @@ public class ThingRankDAO {
 			rs = pstmt.executeQuery();
 			System.out.println("ThingRank UPDATE 완료\n"+ "thing_id: " + thing_id + " user_id: "+user_id + " 변경한 ranks: " + new_ranks);
 			conn.commit();
+			result =1;
 		}catch (SQLException e) {
 			System.err.println("ThingRankDAO : update 오류");
 			e.printStackTrace();
 		}finally {
 			dbUtil.close(rs,pstmt,conn);
 		}
+		return result;
 	}
 	
-	public void delete(int thing_id, String user_id) {
+	public int delete(int thing_id, String user_id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		int result = 0;
 		try {
 			conn = dbUtil.getConnection();
 			String sql = "DELETE FROM THINGRANK TR WHERE TR.THING_ID = ? AND TR.USER_ID = ?";
@@ -109,6 +113,7 @@ public class ThingRankDAO {
 			rs = pstmt.executeQuery();
 			System.out.println("ThingRank DELETE 완료\n"+ "thing_id: " + thing_id + " user_id: "+user_id);
 			conn.commit();
+			result =1;
 		}
 		catch (SQLException e) {
 			System.err.println("ThingRankDAO : delete 오류");
@@ -117,6 +122,7 @@ public class ThingRankDAO {
 		finally {
 			dbUtil.close(rs,pstmt,conn);
 		}
+		return result;
 	}
 	
 	public void printTotalList() {

@@ -37,7 +37,7 @@ public class MyPage extends UserPage{
 			System.out.println("랭크를 추가할 음식점(thing)의 이름을 입력하세요");
 			String thing_name = keyboard.nextLine();
 			thing_id = thingDAO.search_id_by_name(thing_name);
-			if(trDAO.valid_thing(getUser_id(),thing_id)==0) {  //중복 -> 무결성  위반
+			if(trDAO.user_valid_check(getUser_id(),thing_id)==0) {  //중복 -> 무결성  위반
 				System.out.println("이미 랭크를 등록한 Thing입니다");
 			}else {		
 				System.out.println("Rank를 입력하세요");

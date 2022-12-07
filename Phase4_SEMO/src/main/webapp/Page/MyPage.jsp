@@ -36,6 +36,15 @@
 		window.open("${pageContext.request.contextPath }/InsertThingDialog.main",
 		'InsertThing', 'width='+width+ ', height='+ height + ', status=no, scrollbars=yes ,left=' + popupX + ',top='+ popupY);
 	}
+	function UpdateThing(){
+		window.open("${pageContext.request.contextPath }/UpdateThingDialog.main",
+				'InsertThing', 'width='+width+ ', height='+ height + ', status=no, scrollbars=yes ,left=' + popupX + ',top='+ popupY);
+	}
+	function DeleteThing(){
+		window.open("${pageContext.request.contextPath }/DeleteThingDialog.main",
+				'InsertThing', 'width='+width+ ', height='+ height + ', status=no, scrollbars=yes ,left=' + popupX + ',top='+ popupY);
+	}
+	
 </script>
 <head>
     <title>Mypage</title>
