@@ -37,11 +37,12 @@ public class ThingRankDAO {
 	}
 	
 	// 새로운 튜플 insert하기
-	public void insert(int thing_id, String user_id, int ranks) {
+	public int insert(int thing_id, String user_id, int ranks) {
 		ThingRankDTO trDTO = new ThingRankDTO(get_next_id(), thing_id, user_id, ranks);
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		int result = 0;
 		try {
 			conn = dbUtil.getConnection();
 			String sql = "INSERT INTO THINGRANK VALUES(?,?,?,?,?,?)";
@@ -55,6 +56,7 @@ public class ThingRankDAO {
 			rs = pstmt.executeQuery();
 			System.out.println("ThingRank INSERT 완료\n"+trDTO.toString());
 			conn.commit();
+			result =1;
 		}
 		catch (SQLException e) {
 			System.err.println("ThingRankDAO : insert 오류");
@@ -63,6 +65,7 @@ public class ThingRankDAO {
 		finally {
 			dbUtil.close(rs,pstmt,conn);
 		}
+		return result;
 	}
 	
 	// ThingRank 수정하기 - update_date에 자동으로 현재시각 기록됨
@@ -154,7 +157,7 @@ public class ThingRankDAO {
 		return list;
 	}
 	
-	public int valid_thing(String user_id,int thing_id) {
+	public int user_valid_check(String user_id,int thing_id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
