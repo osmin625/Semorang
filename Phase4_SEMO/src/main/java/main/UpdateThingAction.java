@@ -30,7 +30,7 @@ public class UpdateThingAction implements Action{
 		update_result = trDAO.update(thing_id,(String)session.getAttribute("login_id"), Integer.parseInt(request.getParameter("thing_rank")));
 		
 		forward.setIsRedirect(false);
-		forward.setPath("UpdateThingAction.main");
+		forward.setPath("UpdateThingDialog.main");
 		request.setAttribute("thing_name", request.getParameter("thing_name"));
 		request.setAttribute("update_result", update_result);
 		return forward;

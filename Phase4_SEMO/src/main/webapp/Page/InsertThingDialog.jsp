@@ -116,6 +116,9 @@
             flex-direction: column;
             min-height: 100vh;
         }
+        #page{
+        	display: None;
+        }
     </style>
 </head>
 <script type="text/javascript">
@@ -124,12 +127,15 @@
 		self.close();
 	}
 </script>
-
+<%
+	request.setAttribute("page", "insert");
+%>
 <body>
     <div id="temp">
        	<form method= "POST"  name = "insert_form" >
             <div id="input_label">Thing</div>
             <span>
+            	<input type="text" id  = page name ="page" value = "insert">
                 <input type="text" name="thing_name" placeholder="추가할 Thing의 이름" value ="${thing_name}">
                 <input type = "submit" id = vc value ="valid_check" name ="thing_valid_check" 
                 	onclick = "javascript: insert_form.action ='${pageContext.request.contextPath }/ThingValidCheck.main';">
@@ -147,7 +153,7 @@
             <div id="input_label">Rank</div>
             <input type="text" name="thing_rank" placeholder="순위를 입력하세요">
             <span>
-                <input type="submit" id=join value="추가하기" name="thing_insert"
+                <input type="submit" id=join value="추가하기" name="thing_button"
                 	onclick = "javascript: insert_form.action ='${pageContext.request.contextPath }/InsertThingAction.main';">
                 <input type="submit" id=join value="닫기" name="close" onclick = "close()">
                 <!--  제발 닫아줘 어캐 닫노 안 닫긴다 -->

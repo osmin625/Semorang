@@ -39,10 +39,19 @@ public class ThingValidCheckAction implements Action{
 				}
 			}
 		}
+//		System.out.println(TAG + "requestURI: "+ request.getRequestURI());
 		forward.setIsRedirect(false);
-		forward.setPath("InsertThingDialog.main");
 		request.setAttribute("result", result);
 		request.setAttribute("thing_name", thing_name);
+		
+		String page = (String)request.getParameter("page");
+		System.out.println(page);
+		switch(page) {
+		case "insert": forward.setPath("InsertThingDialog.main");	break;
+		case "update": forward.setPath("UpdateThingDialog.main"); 	break;
+		case "delete": forward.setPath("DeleteThingDialog.main");  	break;
+		default : System.out.println(TAG + "setPath 오류");
+		}
 		return forward;
 	}
 

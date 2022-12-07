@@ -27,20 +27,28 @@
 
 <script>
 	function InsertThing(){
-		<!-- 팝업창 중앙정렬 하고 싶다..
 		var width = 430;
 		var height = 500;
 		var popupX = (document.body.offsetWidth / 2) - (width / 2);
 		var popupY=  (document.body.offsetWidth / 2) - (height / 2);
+		<!-- 팝업창 중앙정렬 하고 싶다..
 		-->
 		window.open("${pageContext.request.contextPath }/InsertThingDialog.main",
 		'InsertThing', 'width='+width+ ', height='+ height + ', status=no, scrollbars=yes ,left=' + popupX + ',top='+ popupY);
 	}
 	function UpdateThing(){
+		var width = 430;
+		var height = 500;
+		var popupX = (document.body.offsetWidth / 2) - (width / 2);
+		var popupY=  (document.body.offsetWidth / 2) - (height / 2);
 		window.open("${pageContext.request.contextPath }/UpdateThingDialog.main",
 				'InsertThing', 'width='+width+ ', height='+ height + ', status=no, scrollbars=yes ,left=' + popupX + ',top='+ popupY);
 	}
 	function DeleteThing(){
+		var width = 430;
+		var height = 500;
+		var popupX = (document.body.offsetWidth / 2) - (width / 2);
+		var popupY=  (document.body.offsetWidth / 2) - (height / 2);
 		window.open("${pageContext.request.contextPath }/DeleteThingDialog.main",
 				'InsertThing', 'width='+width+ ', height='+ height + ', status=no, scrollbars=yes ,left=' + popupX + ',top='+ popupY);
 	}
@@ -131,9 +139,9 @@
                     </div>
                 </div>
                 <div id="rrcontent">
-	                    <input type="submit" value="추가"onclick = "return InsertThing()">
-	                    <input type="submit" value="수정">
-	                    <input type="submit" value="삭제">
+	                    <input type="submit" value="추가" onclick = "return InsertThing()">
+	                    <input type="submit" value="수정" onclick = "return UpdateThing()">
+	                    <input type="submit" value="삭제" onclick = "return DeleteThing()">
                 </div>
             </div>
 
