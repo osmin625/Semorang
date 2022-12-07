@@ -8,10 +8,10 @@
 	Connection conn = null;
 	Statement stmt = null;
 	ResultSet rs = null;
-	String sql = "SELECT u.name ,SUM(r.like_count) as sl"
+	String sql = "SELECT u.user_id ,SUM(r.like_count) as sl"
 			+ " FROM users u, ranking_snapshot r"
 			+ " WHERE r.user_id = u.user_id"
-			+ " GROUP BY u.name"
+			+ " GROUP BY u.user_id"
 			+ " ORDER BY sl DESC";
 %>
 <!DOCTYPE html>

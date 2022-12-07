@@ -25,6 +25,18 @@
 	
 %>
 
+<script>
+	function InsertThing(){
+		<!-- 팝업창 중앙정렬 하고 싶다..
+		var width = 430;
+		var height = 500;
+		var popupX = (document.body.offsetWidth / 2) - (width / 2);
+		var popupY=  (document.body.offsetWidth / 2) - (height / 2);
+		-->
+		window.open("${pageContext.request.contextPath }/InsertThingDialog.main",
+		'InsertThing', 'width='+width+ ', height='+ height + ', status=no, scrollbars=yes ,left=' + popupX + ',top='+ popupY);
+	}
+</script>
 <head>
     <title>Mypage</title>
     <meta charset="utf-8" />
@@ -108,6 +120,11 @@
                         		
                         %>
                     </div>
+                     <div id="rrcontent">
+                    	<input type="submit" value="추가" onclick = "return InsertThing()">
+                    	<input type="submit" value="수정">
+                   		<input type="submit" value="삭제">
+                	</div>
                 </div>
             </div>
         </div>
