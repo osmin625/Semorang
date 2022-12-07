@@ -18,7 +18,7 @@
     <title>RankingSnapshot</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel = "stylesheet" type ="text/css" href = "${pageContext.request.contextPath}/css/UserRanking.css">
+    <link rel = "stylesheet" type ="text/css" href = "${pageContext.request.contextPath}/css/SnapshotRanking.css">
 </head>
 
 <body>
@@ -61,11 +61,11 @@
 						rs = stmt.executeQuery(sql);
 						while(rs.next()) {
 							out.print("<div class = tuple>");
-							out.print("<span class = val>" + rs.getString(1)+ "</span>");
-							out.print("<span class = val>" + rs.getString(2)+ "</span>");
-							out.print("<span class = val>" + rs.getString(3)+ "</span>");
-							out.print("<span class = val>" + rs.getInt(4)+ "</span>");
-							out.print("<span class = val>" + rs.getString(5)+ "</span>");
+							out.print("<span class = unit1>" + rs.getString(1)+ "</span>");
+							out.print("<span class = unit2>" + rs.getString(2)+ "</span>");
+							out.print("<span class = unit3>" + rs.getString(3)+ "</span>");
+							out.print("<span class = unit4>" + rs.getInt(4)+ "</span>");
+							out.print("<span class = unit5>" + rs.getString(5)+ "</span>");
 							out.print("</div>");
 						}
 					}catch (SQLException e) {
