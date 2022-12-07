@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 # thing_id, admin_id, thing_name, category_id, latitude, longitude (경도, 위도는 float64타입으로 받아야 할듯)
-p = "Semorang/insert_auto/"
-df_things = pd.read_csv(p + "thing_50.csv")
+p = "c:/Users/ys050/Dropbox/내 PC (LAPTOP-60DNJ58Q)/Desktop/문서/대학생활/2022-2 강의/데이터베이스 - 서영균\프로젝트/Semorang_RE2/Semorang/DB/"
+df_things = pd.read_csv(p + "thing_300.csv")
 # print(df_things)
 cnt = 0
 ans = []
@@ -17,6 +17,8 @@ for i in range(df_things.shape[0]):
         if j == 2:
             if i % 5 == 0:
                 cnt += 1
+            if(cnt >10):
+                cnt = cnt -10
             ad_id = 'admin_'+str(cnt)
             temp.append(ad_id)
 
