@@ -32,6 +32,7 @@ public class MainFrontController extends HttpServlet implements Servlet{
 		
 		System.out.println("command: " +command);
 		
+		// .main으로 끝나는 경우 처리
 		switch(command) {
 		// RankingBoardPage로 이동
 		case "/RankingBoardPage.main":								
@@ -82,11 +83,31 @@ public class MainFrontController extends HttpServlet implements Servlet{
 			forward.setIsRedirect(false);
 			forward.setPath("./Page/InsertThingDialog.jsp");
 			break;
+		
+		// InsertDialog ValidCheck 버튼 클릭 시 수행하는 Action
+		case "/ThingValidCheck.main":
+			action = new ThingValidCheckAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
 			
+		// InsertDialog에서 추가하기 버튼 클릭 시 수행하는 Action
+		case "/InsertThingAction.main":
+			action = new InsertThingAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
 			
+		// 로그아웃 버튼 클릭 시 이동
 		case "/Logout.main":
 			forward = new ActionForward();
-			forward.setIsRedirect(false);
+			forward.setIsRedirect(true);
 			forward.setPath("LoginPage.lo");
 			request.getSession().removeAttribute("login_id");
 			break;
