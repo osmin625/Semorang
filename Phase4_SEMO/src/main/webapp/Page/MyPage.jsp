@@ -164,6 +164,22 @@
             <div id="userinfo">
                <%=login_id %>님,<br>안녕하세요.
             </div>
+            <div class="fd">
+                <span class="fs">
+                    팔로워 수
+                </span>
+                <span class="fs">
+                    팔로잉 수
+                </span>
+            </div>
+            <div class="fd">
+                <span class="fs">
+                    123
+                </span>
+                <span class="fs">
+                    456
+                </span>
+            </div>
             <button id="logout" onclick="location.href='${pageContext.request.contextPath }/Logout.main'">Logout</button>
         </div>
     </div>

@@ -253,3 +253,11 @@ a {
     background-color: #a1c2ff;
     
 }
+.fd{
+    margin-top:20px;
+    display:flex;
+    min-width: 100%;
+    font-weight: bold;
+    font-size: 20px;
+    justify-content: space-evenly
+}
