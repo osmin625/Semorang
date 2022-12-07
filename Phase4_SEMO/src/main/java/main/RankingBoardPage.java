@@ -172,8 +172,8 @@ public class RankingBoardPage {
 			String score = "";
 			for (int i = 0; i < ttl_cnt; i++) {
 //				System.out.println(String.valueOf(sort_ind[i][0]) + ", " +String.valueOf(sort_ind[i][1]));
-				System.out.println("Rank #"+String.valueOf(i+1) + ".\t| " + total_rank[(int)sort_ind[i][1]][0] // mean score 비교/확인 
-				+ " " + total_rank[(int)sort_ind[i][1]][1]);
+//				System.out.println("Rank #"+String.valueOf(i+1) + ".\t| " + total_rank[(int)sort_ind[i][1]][0] // mean score 비교/확인 
+//				+ " " + total_rank[(int)sort_ind[i][1]][1]);
 				thing_name = total_rank[(int)sort_ind[i][1]][0];
 				score = total_rank[(int)sort_ind[i][1]][1];
 				score =Double.toString(Math.round(Double.parseDouble(score) * 100) / 100.0);
@@ -193,11 +193,11 @@ public class RankingBoardPage {
 	// 카테고리 선택하고 받는 함수
 	public static String selectCategory(int category_num) {
 		String cate_str ="";
-		System.out.println("choose category by number");
-		System.out.println("1. 한식\t\t2. 중식\t\t3. 일식/수산물\t4. 분식\t\t5. 닭/오리요리\n"
-				+ "6. 양식\t\t7. 패스트푸드\t8. 제과제빵떡케익\t9. 유흥주점\t10. 별식/퓨전요리\n"
-				+ "11. 커피점/카페\t12. 음식배달서비스\t13. 기타음식업\t14. 부페\t\t15. 통합");
-		System.out.println("choose your category(by number) what you are looking for");
+//		System.out.println("choose category by number");
+//		System.out.println("1. 한식\t\t2. 중식\t\t3. 일식/수산물\t4. 분식\t\t5. 닭/오리요리\n"
+//				+ "6. 양식\t\t7. 패스트푸드\t8. 제과제빵떡케익\t9. 유흥주점\t10. 별식/퓨전요리\n"
+//				+ "11. 커피점/카페\t12. 음식배달서비스\t13. 기타음식업\t14. 부페\t\t15. 통합");
+//		System.out.println("choose your category(by number) what you are looking for");
 		
 		// category check (나중에 함수로 뺄거임)
 		if (category_num < 11) {

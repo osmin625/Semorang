@@ -42,12 +42,12 @@ public class LoginFrontController extends HttpServlet implements Servlet{
 		case "/LoginPage.lo":								
 			forward = new ActionForward();
 			forward.setIsRedirect(false);
-			forward.setPath("./LoginPage.jsp");
+			forward.setPath("./Page/LoginPage.jsp");
 			break;
 			
 		case "/LoginPage2.lo":
 			forward = new ActionForward();
-			forward.setPath("./LoginPage.jsp");
+			forward.setPath("./Page/LoginPage.jsp");
 			forward.setMessage((String)request.getAttribute("message"));
 			System.out.println("message : " +forward.getMessage());
 			break;
@@ -56,7 +56,7 @@ public class LoginFrontController extends HttpServlet implements Servlet{
 		case "/SignUpPage.lo":
 			forward = new ActionForward();
 			forward.setIsRedirect(false);
-			forward.setPath("./SignUpPage.jsp");
+			forward.setPath("./Page/SignUpPage.jsp");
 			break;
 			
 		// 로그인 버튼 클릭

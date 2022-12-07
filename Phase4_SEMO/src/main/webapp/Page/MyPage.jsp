@@ -100,6 +100,7 @@
 	        					}
 		                        out.print("<div class = tuple>");
 		        				out.print("<span class = val>" + new_rank+ "</span>");
+		        				out.print("<span class = val>" + item.getT_categories()+ "</span>");
 		        				out.print("<span class = val>" + item.getT_thing_name()+ "</span>");
 		                        out.print("</div>");
 		                        first_check = false;
@@ -116,7 +117,7 @@
             <div id="userinfo">
                <%=login_id %>님,<br>안녕하세요.
             </div>
-            <button id="logout" onclick="location.href='/logout'">Logout</button>
+            <button id="logout" onclick="location.href='${pageContext.request.contextPath }/Logout.main'">Logout</button>
         </div>
     </div>
 </body>

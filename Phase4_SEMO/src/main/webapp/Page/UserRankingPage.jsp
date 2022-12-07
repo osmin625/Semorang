@@ -48,9 +48,8 @@
                 </div>
                 <div id="rcontent">
                     <div id="rank_head">
-                        <span class="head">순위</span>
-                        <span class="head">상호명</span>
-                        <span class="head">평점</span>
+                        <span class="head">유저</span>
+                        <span class="head">좋아요</span>
                     </div>
                     <div id="ranking">
 					                        
@@ -82,7 +81,7 @@
             <div id="userinfo">
                <%=login_id %>님,<br>안녕하세요.
             </div>
-            <button id="logout" onclick="location.href='/logout'">Logout</button>
+            <button id="logout" onclick="location.href='${pageContext.request.contextPath }/Logout.main'">Logout</button>
         </div>
     </div>
 </body>
