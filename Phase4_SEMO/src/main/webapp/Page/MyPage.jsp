@@ -25,6 +25,18 @@
 	
 %>
 
+<script>
+	function InsertThing(){
+		<!-- 팝업창 중앙정렬 하고 싶다..
+		var width = 430;
+		var height = 500;
+		var popupX = (document.body.offsetWidth / 2) - (width / 2);
+		var popupY=  (document.body.offsetWidth / 2) - (height / 2);
+		-->
+		window.open("${pageContext.request.contextPath }/InsertThingDialog.main",
+		'InsertThing', 'width='+width+ ', height='+ height + ', status=no, scrollbars=yes ,left=' + popupX + ',top='+ popupY);
+	}
+</script>
 <head>
     <title>Mypage</title>
     <meta charset="utf-8" />
@@ -38,7 +50,7 @@
                 <a id="main" href="main.html">
                     <img id="icon" src="${pageContext.request.contextPath }/image/semorang.png" />
                 </a>
-                <span id=r class="head_content">
+                <span class="head_content">
                     <a class="link" href="${pageContext.request.contextPath }/RankingBoardPage.main">Ranking</a>
                 </span>
                 <span class="head_content">
@@ -47,7 +59,7 @@
                 <span class="head_content">
                     <a class="link" href="${pageContext.request.contextPath }/SnapshotBoardPage.main">Ranking Snapshot</a>
                 </span>
-                <span class="head_content">
+                <span id=r class="head_content">
                     <a class="link" href="${pageContext.request.contextPath }/MyPage.main">My page</a>
                 </span>
             </div>
@@ -110,11 +122,9 @@
                     </div>
                 </div>
                 <div id="rrcontent">
-                	<form method="POST" action="${pageContext.request.contextPath }/MP_" id="crud_form">
-	                    <input type="submit" value="추가">
+	                    <input type="submit" value="추가"onclick = "return InsertThing()">
 	                    <input type="submit" value="수정">
 	                    <input type="submit" value="삭제">
-                    </form>
                 </div>
             </div>
 

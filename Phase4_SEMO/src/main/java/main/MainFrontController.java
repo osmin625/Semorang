@@ -76,6 +76,13 @@ public class MainFrontController extends HttpServlet implements Servlet{
 			forward.setPath("./Page/MyPage.jsp");
 			request.setAttribute("category", request.getParameter("category"));
 			break;
+		
+		case "/InsertThingDialog.main":
+			forward = new ActionForward();
+			forward.setIsRedirect(false);
+			forward.setPath("./Page/InsertThingDialog.jsp");
+			break;
+			
 			
 		case "/Logout.main":
 			forward = new ActionForward();
