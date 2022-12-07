@@ -83,6 +83,19 @@ public class MainFrontController extends HttpServlet implements Servlet{
 			forward.setIsRedirect(false);
 			forward.setPath("./Page/InsertThingDialog.jsp");
 			break;
+			
+		case "/UpdateThingDialog.main":
+			forward = new ActionForward();
+			forward.setIsRedirect(false);
+			forward.setPath("./Page/UpdateThingDialog.jsp");
+			break;
+			
+		case"/DeleteThingDialog.main":
+			forward = new ActionForward();
+			forward.setIsRedirect(false);
+			forward.setPath("./Page/DeleteThingDialog.jsp");
+			break;
+		
 		
 		// InsertDialog ValidCheck 버튼 클릭 시 수행하는 Action
 		case "/ThingValidCheck.main":
@@ -103,6 +116,25 @@ public class MainFrontController extends HttpServlet implements Servlet{
 				e.printStackTrace();
 			}
 			break;
+			
+		case "/UpdateThingAction.main":
+			action = new UpdateThingAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+			
+		case "DeleteThingAction.main":
+			action = new DeleteThingAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+		
 			
 		// 로그아웃 버튼 클릭 시 이동
 		case "/Logout.main":

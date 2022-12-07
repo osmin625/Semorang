@@ -60,12 +60,14 @@
 								conn = dbUtil.getConnection();
 								stmt = conn.createStatement();
 								rs = stmt.executeQuery(sql);
+								int count = 1;
 								while(rs.next()) {
 									out.print("<div class = tuple>");
+									out.print("<span class = val>" + count+ "</span>");
 									out.print("<span class = val>" + rs.getString(1)+ "</span>");
 									out.print("<span class = val>" + rs.getInt(2)+ "</span>");
-									System.out.printf("%-10s %-10d\n",rs.getString(1),rs.getInt(2));
 									out.print("</div>");
+									count++;
 								}
 							}catch (SQLException e) {
 								e.printStackTrace();
