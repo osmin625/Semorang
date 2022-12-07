@@ -64,7 +64,7 @@
 								while(rs.next()) {
 									out.print("<div class = tuple>");
 									out.print("<span class = unit1>" + count+ "</span>");
-									out.print("<span class = unit2><a class=link href=''>" + rs.getString(1)+ "</a></span>");
+									out.print("<span class = unit2>" + rs.getString(1)+ "</a></span>");
 									out.print("<span class = unit3>" + rs.getInt(2)+ "</span>");
 									out.print("</div>");
 									count++;

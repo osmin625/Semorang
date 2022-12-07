@@ -139,8 +139,8 @@
 				<c:choose>
 					<c:when test = "${result == 0 }">Thing의 이름을 입력하세요. </c:when>
 					<c:when test = "${result == 1 }">${thing_name}은 유효하지 않은 이름입니다. </c:when>
-					<c:when test = "${result == 2 }">${thing_name}은 이미 등록한 thing입니다. </c:when>
-					<c:when test = "${result == 3 }">${thing_name}은 사용 가능합니다. </c:when>
+					<c:when test = "${result == 2 }">${thing_name}은 수정 가능한 thing입니다. </c:when>
+					<c:when test = "${result == 3 }">${thing_name}은 등록되지 않은 thing입니다. </c:when>
 				</c:choose>
             </span>
             <div id="input_label">Rank</div>
@@ -148,8 +148,6 @@
             <span>
                 <input type="submit" id=join value="수정하기" name="thing_button"
                 	onclick = "javascript: insert_form.action ='${pageContext.request.contextPath }/UpdateThingAction.main';">
-                <input type="submit" id=join value="닫기" name="close" onclick = "close()">
-                <!--  제발 닫아줘 어캐 닫노 안 닫긴다 -->
             </span>
             <span>
             	<c:choose>

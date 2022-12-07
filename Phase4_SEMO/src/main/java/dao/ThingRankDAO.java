@@ -24,7 +24,7 @@ public class ThingRankDAO {
 			pstmt = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			rs = pstmt.executeQuery();
 			rs.last();
-			count = rs.getRow()+1;
+			count = rs.getRow()+2;
 		}
 		catch (SQLException e) {
 			System.err.println("ThingRankDAO : get_next_id() 오류");
@@ -47,6 +47,7 @@ public class ThingRankDAO {
 			conn = dbUtil.getConnection();
 			String sql = "INSERT INTO THINGRANK VALUES(?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
+			System.out.println(trDTO.getThing_rank_id());
 			pstmt.setString(1, trDTO.getThing_rank_id());
 			pstmt.setInt(2, trDTO.getThing_id());
 			pstmt.setString(3, trDTO.getUser_id());

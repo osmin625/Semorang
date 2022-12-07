@@ -147,8 +147,6 @@
             <span>
                 <input type="submit" id=join value="삭제하기" name="thing_button"
                 	onclick = "javascript: insert_form.action ='${pageContext.request.contextPath }/DeleteThingAction.main';">
-                <input type="submit" id=join value="닫기" name="close" onclick = "close()">
-                <!--  제발 닫아줘 어캐 닫노 안 닫긴다 -->
             </span>
             <span>
             	<c:choose>

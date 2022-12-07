@@ -126,7 +126,7 @@ public class MainFrontController extends HttpServlet implements Servlet{
 			}
 			break;
 			
-		case "/DeleteThingAction.main":
+		case "DeleteThingAction.main":
 			action = new DeleteThingAction();
 			try {
 				forward = action.execute(request, response);

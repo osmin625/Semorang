@@ -42,6 +42,7 @@ public class UserPage {
 	public void print_category_trBoard(String user_id,String category_name) {
 		int new_rank = 1; // 카테고리별 출력 시 순위 다시 나타내기 위한 변수
 		int temp;
+		int pre= 0;
 		try {
 			List<User_TR_Board_DTO> mypageDTO_list= utb_DAO.getCateList_by_userId(user_id,category_name);
 			if(mypageDTO_list.isEmpty()) {
@@ -49,10 +50,14 @@ public class UserPage {
 			}else {
 				for (User_TR_Board_DTO myPageDTO : mypageDTO_list) {
 					temp = myPageDTO.getTr_ranks();
-					if(new_rank != temp) {
+					System.out.println("new_rank : " + new_rank + "temp: " + temp );
+					
+					if(new_rank != temp && pre != temp) {
 						new_rank++;
 					}
 					System.out.printf("%-3d | %-10s\n", new_rank, myPageDTO.getT_thing_name());
+					
+					pre = temp;
 				}
 			}
 		} catch (SQLException e) {

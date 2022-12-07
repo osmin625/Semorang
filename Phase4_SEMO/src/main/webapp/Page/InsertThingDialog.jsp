@@ -121,15 +121,6 @@
         }
     </style>
 </head>
-<script type="text/javascript">
-	function close(){
-		opener.document.location.reload();
-		self.close();
-	}
-</script>
-<%
-	request.setAttribute("page", "insert");
-%>
 <body>
     <div id="temp">
        	<form method= "POST"  name = "insert_form" >
@@ -155,7 +146,6 @@
             <span>
                 <input type="submit" id=join value="추가하기" name="thing_button"
                 	onclick = "javascript: insert_form.action ='${pageContext.request.contextPath }/InsertThingAction.main';">
-                <input type="submit" id=join value="닫기" name="close" onclick = "close()">
                 <!--  제발 닫아줘 어캐 닫노 안 닫긴다 -->
             </span>
             <span>

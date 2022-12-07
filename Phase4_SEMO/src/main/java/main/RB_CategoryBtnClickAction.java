@@ -32,7 +32,7 @@ public class RB_CategoryBtnClickAction implements Action{
 		default : 
 			System.err.println("category name-> id 변환 오류 ");
 		}
-		request.setAttribute("category",cate );
+		request.setAttribute("category",cate);
 		forward.setIsRedirect(false);
 		forward.setPath("RankingBoardPage.main");
 		

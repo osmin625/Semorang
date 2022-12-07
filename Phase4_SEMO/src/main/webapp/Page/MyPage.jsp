@@ -17,12 +17,14 @@
 	}
 	
 	List<User_TR_Board_DTO> result = new ArrayList<>();
+	boolean check_total;
 	if (category.equals("전체")){
 		result = mp.print_total_trBoard(login_id);
+		check_total = true;  
 	}else{
 		result = mp.print_category_trBoard(login_id, category);
+		check_total = false;
 	}
-	
 %>
 
 <script>
@@ -31,8 +33,6 @@
 		var height = 500;
 		var popupX = (document.body.offsetWidth / 2) - (width / 2);
 		var popupY=  (document.body.offsetWidth / 2) - (height / 2);
-		<!-- 팝업창 중앙정렬 하고 싶다..
-		-->
 		window.open("${pageContext.request.contextPath }/InsertThingDialog.main",
 		'InsertThing', 'width='+width+ ', height='+ height + ', status=no, scrollbars=yes ,left=' + popupX + ',top='+ popupY);
 	}
@@ -121,20 +121,32 @@
                     </div>
                     <div id="ranking">
                          <%
-                         	int new_rank = 1;
-                         	boolean first_check = true;
-	                        for (User_TR_Board_DTO item : result) {
-	                        	if(new_rank != item.getTr_ranks()&& first_check== false) {
-	        						new_rank++;
-	        					}
-		                        out.print("<div class = tuple>");
-		        				out.print("<span class = unit1>" + new_rank+ "</span>");
-		        				out.print("<span class = unit2>" + item.getT_categories()+ "</span>");
-		        				out.print("<span class = unit3>" + item.getT_thing_name()+ "</span>");
-		                        out.print("</div>");
-		                        first_check = false;
-	            			}
-                        		
+                         	if(check_total){
+		                        for (User_TR_Board_DTO item : result) {
+		                        	out.print("<div class = tuple>");
+		                        	out.print("<span class = unit1>" + item.getTr_ranks()+ "</span>");
+			        				out.print("<span class = unit2>" + item.getT_categories()+ "</span>");
+			        				out.print("<span class = unit3>" + item.getT_thing_name()+ "</span>");
+			                        out.print("</div>");
+		            			}
+                         	}else{
+                         		int new_rank = 0;
+	                         	int temp =0;
+	                         	int pre= 0;
+	                         	for (User_TR_Board_DTO item : result) {
+	                         		temp = item.getTr_ranks();
+	                         		if(new_rank != temp && pre != temp) {
+	            						new_rank++;
+	            					}
+		                        	out.print("<div class = tuple>");
+		                        	out.print("<span class = unit1>" + new_rank+ "</span>");
+			        				out.print("<span class = unit2>" + item.getT_categories()+ "</span>");
+			        				out.print("<span class = unit3>" + item.getT_thing_name()+ "</span>");
+			                        out.print("</div>");
+			                        pre = temp;
+		            			}
+	                         	
+                         	}
                         %>
                     </div>
                 </div>
