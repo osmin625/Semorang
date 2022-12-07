@@ -18,7 +18,7 @@
     <title>RankingSnapshot</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel = "stylesheet" type ="text/css" href = "${pageContext.request.contextPath}/css/RankingBoardPage.css">
+    <link rel = "stylesheet" type ="text/css" href = "${pageContext.request.contextPath}/css/UserRanking.css">
 </head>
 
 <body>
@@ -47,9 +47,11 @@
                 </div>
                 <div id="rcontent">
                     <div id="rank_head">
-                        <span class="head">순위</span>
-                        <span class="head">상호명</span>
-                        <span class="head">평점</span>
+                        <span class="head">SnapshotID</span>
+                        <span class="head">게시글 내용</span>
+                        <span class="head">작성자</span>
+                        <span class="head">받은 좋아요 수</span>
+                        <span class="head">작성 시기</span>
                     </div>
                     <div id="ranking">
                     <%

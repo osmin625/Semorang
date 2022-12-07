@@ -29,7 +29,7 @@
     <title>Mypage</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel = "stylesheet" type ="text/css" href = "${pageContext.request.contextPath}/css/RankingBoardPage.css">
+    <link rel = "stylesheet" type ="text/css" href = "${pageContext.request.contextPath}/css/MyPage.css">
 </head>
 <body>
     <div id="wrapper">
@@ -109,7 +109,15 @@
                         %>
                     </div>
                 </div>
+                <div id="rrcontent">
+                	<form method="POST" action="${pageContext.request.contextPath }/MP_" id="crud_form">
+	                    <input type="submit" value="추가">
+	                    <input type="submit" value="수정">
+	                    <input type="submit" value="삭제">
+                    </form>
+                </div>
             </div>
+
         </div>
         <!-- Sidebar -->
         <div id="sidebar">
