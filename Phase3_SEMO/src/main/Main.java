@@ -50,7 +50,7 @@ public class Main {
 					keyboard.nextLine();
 					
 					if (menu == 1) {
-						rbp.display(keyboard);
+//						rbp.display(keyboard);
 					} else if (menu == 2) {
 						urp.display();
 					} else if (menu == 3) {

@@ -7,13 +7,13 @@ import java.sql.SQLException;
 
 public class DBUtil {
 //  팀 클라우드 접속 코드 -> 과제는 local에서 phase2 ddl, insert 스크립트 활용하여 테스트 
-	private final String URL = "jdbc:oracle:thin:@SEMODB_high?TNS_ADMIN=C:\\\\OracleDBproject\\\\Wallet_SEMODB";
-	private final String USER_ID = "ADMIN";
-	private final String USER_PWD = "Semorang1234";
-	
-//	private final String URL = "jdbc:oracle:thin:@localhost:1521:orcl";
-//	private final String USER_ID = "SEMOTEST";
-//	private final String USER_PWD = "1234";
+//	private final String URL = "jdbc:oracle:thin:@SEMODB_high?TNS_ADMIN=C:\\\\OracleDBproject\\\\Wallet_SEMODB";
+//	private final String USER_ID = "ADMIN";
+//	private final String USER_PWD = "Semorang1234";
+//	
+	private final String URL = "jdbc:oracle:thin:@localhost:1521:orcl";
+	private final String USER_ID = "SEMOTEST";
+	private final String USER_PWD = "1234";
 
 	private static DBUtil instance;
 

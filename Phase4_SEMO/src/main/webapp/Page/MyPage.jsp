@@ -17,30 +17,38 @@
 	}
 	
 	List<User_TR_Board_DTO> result = new ArrayList<>();
+	boolean check_total;
 	if (category.equals("전체")){
 		result = mp.print_total_trBoard(login_id);
+		check_total = true;  
 	}else{
 		result = mp.print_category_trBoard(login_id, category);
+		check_total = false;
 	}
-	
 %>
 
 <script>
 	function InsertThing(){
-		<!-- 팝업창 중앙정렬 하고 싶다..
 		var width = 430;
 		var height = 500;
 		var popupX = (document.body.offsetWidth / 2) - (width / 2);
 		var popupY=  (document.body.offsetWidth / 2) - (height / 2);
-		-->
 		window.open("${pageContext.request.contextPath }/InsertThingDialog.main",
 		'InsertThing', 'width='+width+ ', height='+ height + ', status=no, scrollbars=yes ,left=' + popupX + ',top='+ popupY);
 	}
 	function UpdateThing(){
+		var width = 430;
+		var height = 500;
+		var popupX = (document.body.offsetWidth / 2) - (width / 2);
+		var popupY=  (document.body.offsetWidth / 2) - (height / 2);
 		window.open("${pageContext.request.contextPath }/UpdateThingDialog.main",
 				'InsertThing', 'width='+width+ ', height='+ height + ', status=no, scrollbars=yes ,left=' + popupX + ',top='+ popupY);
 	}
 	function DeleteThing(){
+		var width = 430;
+		var height = 500;
+		var popupX = (document.body.offsetWidth / 2) - (width / 2);
+		var popupY=  (document.body.offsetWidth / 2) - (height / 2);
 		window.open("${pageContext.request.contextPath }/DeleteThingDialog.main",
 				'InsertThing', 'width='+width+ ', height='+ height + ', status=no, scrollbars=yes ,left=' + popupX + ',top='+ popupY);
 	}
@@ -113,27 +121,39 @@
                     </div>
                     <div id="ranking">
                          <%
-                         	int new_rank = 1;
-                         	boolean first_check = true;
-	                        for (User_TR_Board_DTO item : result) {
-	                        	if(new_rank != item.getTr_ranks()&& first_check== false) {
-	        						new_rank++;
-	        					}
-		                        out.print("<div class = tuple>");
-		        				out.print("<span class = unit1>" + new_rank+ "</span>");
-		        				out.print("<span class = unit2>" + item.getT_categories()+ "</span>");
-		        				out.print("<span class = unit3>" + item.getT_thing_name()+ "</span>");
-		                        out.print("</div>");
-		                        first_check = false;
-	            			}
-                        		
+                         	if(check_total){
+		                        for (User_TR_Board_DTO item : result) {
+		                        	out.print("<div class = tuple>");
+		                        	out.print("<span class = unit1>" + item.getTr_ranks()+ "</span>");
+			        				out.print("<span class = unit2>" + item.getT_categories()+ "</span>");
+			        				out.print("<span class = unit3>" + item.getT_thing_name()+ "</span>");
+			                        out.print("</div>");
+		            			}
+                         	}else{
+                         		int new_rank = 0;
+	                         	int temp =0;
+	                         	int pre= 0;
+	                         	for (User_TR_Board_DTO item : result) {
+	                         		temp = item.getTr_ranks();
+	                         		if(new_rank != temp && pre != temp) {
+	            						new_rank++;
+	            					}
+		                        	out.print("<div class = tuple>");
+		                        	out.print("<span class = unit1>" + new_rank+ "</span>");
+			        				out.print("<span class = unit2>" + item.getT_categories()+ "</span>");
+			        				out.print("<span class = unit3>" + item.getT_thing_name()+ "</span>");
+			                        out.print("</div>");
+			                        pre = temp;
+		            			}
+	                         	
+                         	}
                         %>
                     </div>
                 </div>
                 <div id="rrcontent">
-	                    <input type="submit" value="추가"onclick = "return InsertThing()">
-	                    <input type="submit" value="수정">
-	                    <input type="submit" value="삭제">
+	                    <input type="submit" value="추가" onclick = "return InsertThing()">
+	                    <input type="submit" value="수정" onclick = "return UpdateThing()">
+	                    <input type="submit" value="삭제" onclick = "return DeleteThing()">
                 </div>
             </div>
 
@@ -143,22 +163,6 @@
             <button id="close">≫</button>
             <div id="userinfo">
                <%=login_id %>님,<br>안녕하세요.
-            </div>
-            <div class="fd">
-                <span class="fs">
-                    팔로워 수
-                </span>
-                <span class="fs">
-                    팔로잉 수
-                </span>
-            </div>
-            <div class="fd">
-                <span class="fs">
-                    123
-                </span>
-                <span class="fs">
-                    456
-                </span>
             </div>
             <button id="logout" onclick="location.href='${pageContext.request.contextPath }/Logout.main'">Logout</button>
         </div>

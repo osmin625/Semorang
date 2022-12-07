@@ -64,7 +64,7 @@
 								while(rs.next()) {
 									out.print("<div class = tuple>");
 									out.print("<span class = unit1>" + count+ "</span>");
-									out.print("<span class = unit2><a class=link href=''>" + rs.getString(1)+ "</a></span>");
+									out.print("<span class = unit2>" + rs.getString(1)+ "</a></span>");
 									out.print("<span class = unit3>" + rs.getInt(2)+ "</span>");
 									out.print("</div>");
 									count++;
@@ -84,22 +84,6 @@
             <button id="close">≫</button>
             <div id="userinfo">
                <%=login_id %>님,<br>안녕하세요.
-            </div>
-            <div class="fd">
-                <span class="fs">
-                    팔로워 수
-                </span>
-                <span class="fs">
-                    팔로잉 수
-                </span>
-            </div>
-            <div class="fd">
-                <span class="fs">
-                    123
-                </span>
-                <span class="fs">
-                    456
-                </span>
             </div>
             <button id="logout" onclick="location.href='${pageContext.request.contextPath }/Logout.main'">Logout</button>
         </div>

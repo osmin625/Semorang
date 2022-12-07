@@ -116,6 +116,9 @@
             flex-direction: column;
             min-height: 100vh;
         }
+        #page{
+        	display: None;
+        }
     </style>
 </head>
 <script type="text/javascript">
@@ -130,6 +133,7 @@
        	<form method= "POST"  name = "insert_form" >
             <div id="input_label">Thing</div>
             <span>
+            	<input type="text" id  = page name ="page" value = "delete">
                 <input type="text" name="thing_name" placeholder="삭제할 Thing의 이름을 입력하세요" value ="${thing_name}">
                 <input type = "submit" id = vc value ="valid_check" name ="thing_valid_check" 
                 	onclick = "javascript: insert_form.action ='${pageContext.request.contextPath }/ThingValidCheck.main';">
@@ -140,17 +144,14 @@
 					<c:when test = "${result == 3 }">${thing_name}은 사용 가능합니다. </c:when>
 				</c:choose>
             </span>
-            <div id="input_label">Rank</div>
             <span>
-                <input type="submit" id=join value="삭제하기" name="thing_update"
+                <input type="submit" id=join value="삭제하기" name="thing_button"
                 	onclick = "javascript: insert_form.action ='${pageContext.request.contextPath }/DeleteThingAction.main';">
-                <input type="submit" id=join value="닫기" name="close" onclick = "close()">
-                <!--  제발 닫아줘 어캐 닫노 안 닫긴다 -->
             </span>
             <span>
             	<c:choose>
-					<c:when test = "${insert_result == 0 }">${thing_name}을 삭제하지 못했습니다.</c:when>
-					<c:when test = "${insert_result == 1 }">${thing_name}이 삭제되었습니다. </c:when>
+					<c:when test = "${delete_result == 0 }">${thing_name}을 삭제하지 못했습니다.</c:when>
+					<c:when test = "${delete_result == 1 }">${thing_name}이 삭제되었습니다. </c:when>
 				</c:choose>
             </span>
         </form>
