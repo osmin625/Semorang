@@ -7,7 +7,8 @@
 #headline {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    margin-right: 20px;
+    justify-content: space-between;
     height: 10vh;
 }
 
@@ -175,7 +176,7 @@ a {
 
 #lcontent {
     display: flex;
-    width: 40%;
+    width: 0%;
     flex-direction: column;
     margin-top: 10%;
     padding: 6%;
@@ -184,7 +185,7 @@ a {
 #rcontent {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 82%;
 }
 #rank_head{
     display: flex;
@@ -203,18 +204,18 @@ a {
 }
 #ranking {
     display:flex;
+    overflow: auto;
     flex-direction: column;
     padding: 1em;
     border-radius: 16px;
     margin-right: 50px;
     margin-top: 10px;
-    margin-bottom: 30px;
     border: solid 2px #000000;
     background-color: #ffffff;
     color: black;
     font-weight: bold;
     font-size: 20px;
-    overflow: auto;
+    margin-bottom: 30px;
 }
 .tuple{
     display:flex;
@@ -223,9 +224,10 @@ a {
 }
 .unit {
     /* border-bottom: solid 2px #b4b4b4; */
-  /* margin: 10px; */
+    /* margin: 10px; */
     font-size: 30px;
 }
 #r{
     background-color: #a1c2ff;
+    
 }

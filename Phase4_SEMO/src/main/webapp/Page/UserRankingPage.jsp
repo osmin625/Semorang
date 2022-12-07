@@ -20,7 +20,8 @@
  	<title>UserRankingSnapshot</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel = "stylesheet" type ="text/css" href = "${pageContext.request.contextPath}/css/RankingBoardPage.css">
+	<link rel = "stylesheet" type ="text/css" href = "${pageContext.request.contextPath}/css/UserRanking.css">
+	
 </head>
 <body>
     <div id="wrapper">
@@ -29,10 +30,10 @@
                 <a id="main" href="main.html">
                     <img id="icon" src="${pageContext.request.contextPath }/image/semorang.png" />
                 </a>
-                <span id=r class="head_content">
+                <span class="head_content">
                     <a class="link" href="${pageContext.request.contextPath }/RankingBoardPage.main">Ranking</a>
                 </span>
-                <span class="head_content">
+                <span  id=r class="head_content">
                     <a class="link" href="${pageContext.request.contextPath }/UserRankingPage.main">User Ranking</a>
                 </span>
                 <span class="head_content">
@@ -48,8 +49,9 @@
                 </div>
                 <div id="rcontent">
                     <div id="rank_head">
-                        <span class="head">유저</span>
-                        <span class="head">좋아요</span>
+                        <span class="head">순위</span>
+                        <span class="head">사용자ID</span>
+                        <span class="head">좋아요 수</span>
                     </div>
                     <div id="ranking">
 					                        
