@@ -1,27 +1,36 @@
+<%@page import="dao.User_TR_Board_DAO"%>
+<%@page import="main.MyPage"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page language="java" import="main.RankingBoardPage,java.util.*"%>
+<%@ page language="java" import="main.MyPage,dto.User_TR_Board_DTO,java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <%
 	String login_id = (String)session.getAttribute("login_id"); 
-	RankingBoardPage rbp = new RankingBoardPage();
-	int category;
+	MyPage mp = new MyPage();
+	// 카테고리는 cate_name (String)으로 넘겨준다
+	String category ="";
 	if (request.getAttribute("category") == null){
-		category = 15;
+		category = "전체";
 	}else{
-		category = (int)request.getAttribute("category");
+	 category= (String)request.getAttribute("category");
 	}
-	ArrayList<String[]> result = rbp.display(category);
+	
+	List<User_TR_Board_DTO> result = new ArrayList<>();
+	if (category.equals("전체")){
+		result = mp.print_total_trBoard(login_id);
+	}else{
+		result = mp.print_category_trBoard(login_id, category);
+	}
+	
 %>
 
 <head>
-    <title>RankingBoardPage</title>
+    <title>Mypage</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel = "stylesheet" type ="text/css" href = "${pageContext.request.contextPath}/css/RankingBoardPage.css">
 </head>
-
 <body>
     <div id="wrapper">
         <div id="content">
@@ -44,7 +53,7 @@
             </div>
             <div id=bodyline>
                 <div id="lcontent">
-                    <form method="POST" action="${pageContext.request.contextPath }/RB_CategoryBtnClick.main" id="category_form">
+                    <form method="POST" action="${pageContext.request.contextPath }/MP_CategoryBtnClick.main" id="category_form">
                         <div>
                             <input type="submit" name=category value="전체">
                         </div>
@@ -80,16 +89,20 @@
                     <div id="rank_head">
                         <span class="head">순위</span>
                         <span class="head">상호명</span>
-                        <span class="head">평점</span>
                     </div>
                     <div id="ranking">
                          <%
-	                        for (String[] item : result) {
+                         	int new_rank = 1;
+                         	boolean first_check = true;
+	                        for (User_TR_Board_DTO item : result) {
+	                        	if(new_rank != item.getTr_ranks()&& first_check== false) {
+	        						new_rank++;
+	        					}
 		                        out.print("<div class = tuple>");
-		        				out.print("<span class = val>" + item[0]+ "</span>");
-		        				out.print("<span class = val>" + item[1]+ "</span>");
-		        				out.print("<span class = val>" + item[2]+ "</span>");
+		        				out.print("<span class = val>" + new_rank+ "</span>");
+		        				out.print("<span class = val>" + item.getT_thing_name()+ "</span>");
 		                        out.print("</div>");
+		                        first_check = false;
 	            			}
                         		
                         %>

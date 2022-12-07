@@ -1,4 +1,4 @@
-package controller;
+package main;
 
 import java.sql.Statement;
 import java.sql.Connection;

@@ -33,21 +33,49 @@ public class MainFrontController extends HttpServlet implements Servlet{
 		System.out.println("command: " +command);
 		
 		switch(command) {
+		// RankingBoardPage로 이동
 		case "/RankingBoardPage.main":								
 			forward = new ActionForward();
 			forward.setIsRedirect(false);
 			forward.setPath("./Page/RankingBoardPage.jsp");
 			break;
 			
-		// 로그인 버튼 클릭
+		// RankingBoardPage의 카테고리 버튼 클릭시 수행하는 Action
 		case "/RB_CategoryBtnClick.main":
 			action = new RB_CategoryBtnClickAction();
-//			System.out.println(TAG+"loginBtnClick 들어옴");
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			break;
+			
+		case "/UserRankingPage.main":
+			forward = new ActionForward();
+			forward.setIsRedirect(false);
+			forward.setPath("./Page/UserRankingPage.jsp");
+			break;
+		
+		case "/SnapshotBoardPage.main":
+			forward = new ActionForward();
+			forward.setIsRedirect(false);
+			forward.setPath("./Page/SnapshotBoardPage.jsp");
+			break;
+
+			
+		// MyPage로 이동
+		case "/MyPage.main":
+			forward = new ActionForward();
+			forward.setIsRedirect(false);
+			forward.setPath("./Page/MyPage.jsp");
+			break;
+			
+		// MyPage의 카테고리 버튼 클릭 시 수행하는 Action
+		case "/MP_CategoryBtnClick.main":
+			forward = new ActionForward();
+			forward.setIsRedirect(false);
+			forward.setPath("./Page/MyPage.jsp");
+			request.setAttribute("category", request.getParameter("category"));
 			break;
 			
 		default :
