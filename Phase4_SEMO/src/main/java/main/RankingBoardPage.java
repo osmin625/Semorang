@@ -1,31 +1,28 @@
-package page;
+package main;
 
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import main.DBUtil;
+import util.DBUtil;
 
 public class RankingBoardPage {
 	private DBUtil dbUtil = DBUtil.getInstance();
-	private String category;
 	
 	public RankingBoardPage() {
-		category = "";
+
 	}
 	
 	// 각 Thing에 대해서 전체 유저들이 매긴 Thingrank 평균을 높은 순으로 출력
-	public ArrayList<String[]> display(String category) {
+	public ArrayList<String[]> display(int category_num) {
 		
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		ResultSet rs_cnt = null;
 		ArrayList<String[]> result =new ArrayList<>();
-		
+		String category = selectCategory(category_num);
 		
 		// 각 유저가 선택한 thing의 점수를 카테고리별로 계산하기 위해 쿼리를 구현한다
 		String sql = "select user_id, ranks, thing_name, categories, thing_id, THING_CNT "
@@ -179,10 +176,13 @@ public class RankingBoardPage {
 				+ " " + total_rank[(int)sort_ind[i][1]][1]);
 				thing_name = total_rank[(int)sort_ind[i][1]][0];
 				score = total_rank[(int)sort_ind[i][1]][1];
+				score =Double.toString(Math.round(Double.parseDouble(score) * 100) / 100.0);
 				
 				String[] temp = new String[] {String.valueOf(i+1),thing_name,score};
 				result.add(temp);
 			}
+			
+			
 			rs.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -191,7 +191,7 @@ public class RankingBoardPage {
 	}
 	
 	// 카테고리 선택하고 받는 함수
-	public static String selectCategory(Scanner keyboard) {
+	public static String selectCategory(int category_num) {
 		String cate_str ="";
 		System.out.println("choose category by number");
 		System.out.println("1. 한식\t\t2. 중식\t\t3. 일식/수산물\t4. 분식\t\t5. 닭/오리요리\n"
@@ -199,7 +199,6 @@ public class RankingBoardPage {
 				+ "11. 커피점/카페\t12. 음식배달서비스\t13. 기타음식업\t14. 부페\t\t15. 통합");
 		System.out.println("choose your category(by number) what you are looking for");
 		
-		int category_num = keyboard.nextInt();
 		// category check (나중에 함수로 뺄거임)
 		if (category_num < 11) {
 			cate_str = String.valueOf(category_num);
@@ -215,7 +214,11 @@ public class RankingBoardPage {
 		} else if(category_num == 15) {
 			cate_str = "Q";
 		}
+		
+		
 		return cate_str;
 	}
 
+	
+	
 }

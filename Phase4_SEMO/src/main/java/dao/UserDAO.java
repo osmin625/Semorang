@@ -63,6 +63,32 @@ public class UserDAO {
 		return userDTO;
 	}
 	
+	public boolean idCheck(String user_id)throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean result = false;																		
+		String sql="";
+		try {
+			conn = dbUtil.getConnection();
+			sql = "SELECT USER_ID FROM USERS WHERE USER_ID = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,user_id);
+			rs = pstmt.executeQuery();
+			if(rs!=null && rs.isBeforeFirst()) { // rs에 값이 하나라도 있을 경우
+					result = true;
+			}
+		}
+		catch (SQLException e) {
+			System.err.println("UserDAO : idCheck 오류");
+			e.printStackTrace();
+		}
+		finally {
+			dbUtil.close(rs,pstmt,conn);
+		}	
+		return result;
+	}
+	
 	public boolean insert(UserDTO userDTO) throws SQLException{
 		Connection conn = null;
 		PreparedStatement pstmt = null;

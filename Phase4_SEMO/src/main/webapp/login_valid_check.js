@@ -17,3 +17,4 @@ function loginCheck(){
 		return true;
 	}
 }
+

@@ -154,29 +154,29 @@ public class ThingRankDAO {
 		return list;
 	}
 	
-//	public int valid_thing(int thing_id) {
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		int result = 0;																		
-//		String sql="";
-//		try {
-//			conn = dbUtil.getConnection();
-//			sql = "SELECT THING_ID FROM THINGRANK WHERE USER_ID = ? AND Thing_id = ?";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setString(1,LoginPage.user_id);
-//			pstmt.setInt(2,thing_id);
-//			rs = pstmt.executeQuery();
-//			if(rs!=null && rs.isBeforeFirst()) { // rs에 값이 하나라도 있을 경우
-//					result = 1;
-//			}
-//		}
-//		catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		finally {
-//			dbUtil.close(rs,pstmt,conn);
-//		}	
-//		return result;
-//	}
+	public int valid_thing(String user_id,int thing_id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;																		
+		String sql="";
+		try {
+			conn = dbUtil.getConnection();
+			sql = "SELECT THING_ID FROM THINGRANK WHERE USER_ID = ? AND Thing_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,user_id);
+			pstmt.setInt(2,thing_id);
+			rs = pstmt.executeQuery();
+			if(rs!=null && rs.isBeforeFirst()) { // rs에 값이 하나라도 있을 경우
+					result = 1;
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			dbUtil.close(rs,pstmt,conn);
+		}	
+		return result;
+	}
 }
