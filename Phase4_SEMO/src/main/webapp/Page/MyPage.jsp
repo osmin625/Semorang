@@ -120,9 +120,9 @@
 	        						new_rank++;
 	        					}
 		                        out.print("<div class = tuple>");
-		        				out.print("<span class = val>" + new_rank+ "</span>");
-		        				out.print("<span class = val>" + item.getT_categories()+ "</span>");
-		        				out.print("<span class = val>" + item.getT_thing_name()+ "</span>");
+		        				out.print("<span class = unit1>" + new_rank+ "</span>");
+		        				out.print("<span class = unit2>" + item.getT_categories()+ "</span>");
+		        				out.print("<span class = unit3>" + item.getT_thing_name()+ "</span>");
 		                        out.print("</div>");
 		                        first_check = false;
 	            			}
