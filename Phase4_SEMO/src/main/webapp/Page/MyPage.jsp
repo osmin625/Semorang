@@ -50,7 +50,7 @@
                 <a id="main" href="main.html">
                     <img id="icon" src="${pageContext.request.contextPath }/image/semorang.png" />
                 </a>
-                <span id=r class="head_content">
+                <span class="head_content">
                     <a class="link" href="${pageContext.request.contextPath }/RankingBoardPage.main">Ranking</a>
                 </span>
                 <span class="head_content">
@@ -59,7 +59,7 @@
                 <span class="head_content">
                     <a class="link" href="${pageContext.request.contextPath }/SnapshotBoardPage.main">Ranking Snapshot</a>
                 </span>
-                <span class="head_content">
+                <span id=r class="head_content">
                     <a class="link" href="${pageContext.request.contextPath }/MyPage.main">My page</a>
                 </span>
             </div>
@@ -120,18 +120,11 @@
                         		
                         %>
                     </div>
-                     <div id="rrcontent">
-                    	<input type="submit" value="추가" onclick = "return InsertThing()">
-                    	<input type="submit" value="수정">
-                   		<input type="submit" value="삭제">
-                	</div>
                 </div>
                 <div id="rrcontent">
-                	<form method="POST" action="${pageContext.request.contextPath }/MP_" id="crud_form">
-	                    <input type="submit" value="추가">
+	                    <input type="submit" value="추가"onclick = "return InsertThing()">
 	                    <input type="submit" value="수정">
 	                    <input type="submit" value="삭제">
-                    </form>
                 </div>
             </div>
 
