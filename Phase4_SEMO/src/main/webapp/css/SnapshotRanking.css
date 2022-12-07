@@ -1,13 +1,14 @@
 @charset "EUC-KR";
 #content {
-           background-color: #fffefb;
-           width: 100%;
-       }
+    background-color: #fffefb;
+    width: 100%;
+}
 
 #headline {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    margin-right: 20px;
+    justify-content: space-between;
     height: 10vh;
 }
 
@@ -175,7 +176,7 @@ a {
 
 #lcontent {
     display: flex;
-    width: 30%;
+    width: 0%;
     flex-direction: column;
     margin-top: 10%;
     padding: 6%;
@@ -184,14 +185,7 @@ a {
 #rcontent {
     display: flex;
     flex-direction: column;
-    width: 50%;
-}
-#rrcontent{
-    display: flex;
-    flex-direction: column;
-    width: 10%;
-    padding: 2%;
-    justify-content: space-evenly;
+    width: 82%;
 }
 #rank_head{
     display: flex;
@@ -209,8 +203,8 @@ a {
     font-weight: bold;
 }
 #ranking {
-    overflow: auto;
     display:flex;
+    overflow: auto;
     flex-direction: column;
     padding: 1em;
     border-radius: 16px;
@@ -221,7 +215,7 @@ a {
     color: black;
     font-weight: bold;
     font-size: 20px;
-    height: 70vh;
+    margin-bottom: 30px;
 }
 .tuple{
     display:flex;
@@ -232,21 +226,35 @@ a {
     /* border-bottom: solid 2px #b4b4b4; */
     /* margin: 10px; */
     display:flex;
-    min-width:33%;
+    min-width:19%;
     justify-content: flex-start;
 }
 .unit2 {
     /* border-bottom: solid 2px #b4b4b4; */
     /* margin: 10px; */
     display:flex;
-    min-width:33%;
+    min-width:19%;
     justify-content: center;
 }
 .unit3 {
     /* border-bottom: solid 2px #b4b4b4; */
     /* margin: 10px; */
     display:flex;
-    min-width:33%;
+    min-width:19%;
+    justify-content: center;
+}
+.unit4 {
+    /* border-bottom: solid 2px #b4b4b4; */
+    /* margin: 10px; */
+    display:flex;
+    min-width:19%;
+    justify-content: center;
+}
+.unit5 {
+    /* border-bottom: solid 2px #b4b4b4; */
+    /* margin: 10px; */
+    display:flex;
+    min-width:19%;
     justify-content: flex-end;
 }
 #r{
