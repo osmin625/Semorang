@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page language="java" import="main.RankingBoardPage,java.util.*"%>
+<%@ page language="java" import="main.RankingBoardPage,java.util.*,java.text.*,java.sql.*,util.DBUtil"%>
 <%
 	String login_id = (String)session.getAttribute("login_id"); 	
+	DBUtil dbUtil = DBUtil.getInstance();
+	Connection conn = null;
+	Statement stmt = null;
+	ResultSet rs = null;
+	String sql = "SELECT s.snapshot_id, s.content, u.user_id, s.like_count, s.taken_date"
+			+ " FROM USERS u, RANKING_SNAPSHOT s"
+			+ " WHERE u.user_id = s.user_id"
+			+ " ORDER BY taken_date DESC";
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,16 +52,26 @@
                         <span class="head">평점</span>
                     </div>
                     <div id="ranking">
-                         <!-- %
-	                        for (String[] item : result) {
-		                        out.print("<div class = tuple>");
-		        				out.print("<span class = val>" + item[0]+ "</span>");
-		        				out.print("<span class = val>" + item[1]+ "</span>");
-		        				out.print("<span class = val>" + item[2]+ "</span>");
-		                        out.print("</div>");
-	            			}
-                        		
-                        %-->
+                    <%
+                    try {
+						conn = dbUtil.getConnection();
+						stmt = conn.createStatement();
+						rs = stmt.executeQuery(sql);
+						while(rs.next()) {
+							out.print("<div class = tuple>");
+							out.print("<span class = val>" + rs.getString(1)+ "</span>");
+							out.print("<span class = val>" + rs.getString(2)+ "</span>");
+							out.print("<span class = val>" + rs.getString(3)+ "</span>");
+							out.print("<span class = val>" + rs.getInt(4)+ "</span>");
+							out.print("<span class = val>" + rs.getString(5)+ "</span>");
+							out.print("</div>");
+						}
+					}catch (SQLException e) {
+						e.printStackTrace();
+					}finally {
+						dbUtil.close(rs,stmt,conn);
+					}
+					%>
                     </div>
                 </div>
             </div>
