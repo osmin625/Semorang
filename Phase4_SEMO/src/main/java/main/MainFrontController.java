@@ -61,7 +61,6 @@ public class MainFrontController extends HttpServlet implements Servlet{
 			forward.setIsRedirect(false);
 			forward.setPath("./Page/SnapshotBoardPage.jsp");
 			break;
-
 			
 		// MyPage로 이동
 		case "/MyPage.main":
@@ -76,6 +75,13 @@ public class MainFrontController extends HttpServlet implements Servlet{
 			forward.setIsRedirect(false);
 			forward.setPath("./Page/MyPage.jsp");
 			request.setAttribute("category", request.getParameter("category"));
+			break;
+			
+		case "/Logout.main":
+			forward = new ActionForward();
+			forward.setIsRedirect(false);
+			forward.setPath("LoginPage.lo");
+			request.getSession().removeAttribute("login_id");
 			break;
 			
 		default :

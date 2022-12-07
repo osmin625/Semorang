@@ -103,7 +103,7 @@
             <div id="userinfo">
                <%=login_id %>님,<br>안녕하세요.
             </div>
-            <button id="logout" onclick="location.href='/logout'">Logout</button>
+            <button id="logout" onclick="location.href='${pageContext.request.contextPath }/Logout.main'">Logout</button>
         </div>
     </div>
 </body>

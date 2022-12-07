@@ -28,7 +28,7 @@
                     <input type="submit" id="join" value="로그인"/>
                     <span id="log_message">${message}</span>
                     <div id="login_option">
-                        <a class="link" href="SignUpPage.lo">회원가입</a>
+                        <a class="link" href="${pageContext.request.contextPath }/SignUpPage.lo">회원가입</a>
                         <!--<a class="link" href="./find_idpw.html">아이디/비밀번호 찾기</a> -->
                     </div>
                 </form>
